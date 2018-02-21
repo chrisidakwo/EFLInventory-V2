@@ -57,6 +57,9 @@ Manager login details:
 <br>Password: admin 
 </p>
 
+## User Interface
+[Material Pro Admin Template](https://themeforest.net/item/materialpro-bootstrap-4-admin-template/20203944) is the UI theme used for this application. 
+
 ## Known Issues (as of 31st Dec 2017)
 - `js.printArea` plugin duplicates the receipt for printing.
 - Unhandled exceptions for migration using Excel spreadsheets.
