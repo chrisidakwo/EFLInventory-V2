@@ -1,0 +1,877 @@
+
+body {
+    font-size: 14px;
+}
+
+table {
+    border-spacing: 0;
+}
+
+table th {
+    font-size: 16px;
+}
+
+table tbody tr td {
+    font-size: 14px;
+}
+
+table td.header-cell {
+    padding: 0 !important;
+}
+
+.form-control {
+    line-height: 1.5;
+}
+
+span.select2 {
+    width: 100% !important;
+}
+
+.collapsed {
+    height: 0;
+}
+
+.naira {
+    text-decoration: line-through;
+    text-line-through: double;
+}
+
+/*==============================================================
+ POS Window
+ ============================================================== */
+
+.pos-body {
+    min-width: 940px !important;
+    margin: 0 auto;
+    overflow-x: scroll;
+}
+
+.pos {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #F0EEEE;
+    color: #888;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    text-shadow: none;
+    overflow: hidden;
+}
+
+.pos-top-header {
+    background: #393939;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    color: gray;
+}
+
+.pos-branding {
+    /*background: red;*/
+    position: absolute;
+    display: table-cell;
+    left: 0;
+    top: 0;
+    width: 420px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    line-height: 100%;
+    vertical-align: middle;
+}
+
+.pos-branding .pos-logo {
+    height: 25px;
+    margin-left: 7px;
+    margin-top: 12px;
+    vertical-align: middle;
+}
+
+.pos-branding .username {
+    float: right;
+    color: #FFF;
+    font-size: 16px;
+    margin-right: 12px;
+    line-height: 48px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.right-header {
+    position: absolute;
+    /*background: blue;*/
+    left: 421px;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.right-header .header-button {
+    float: right;
+    /*height: 48px;*/
+    padding-left: 16px;
+    padding-right: 16px;
+    /*border-right: 1px solid #FFF;*/
+    /*border-left: 1px solid #FFF;*/
+    line-height: 48px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-out;
+}
+
+.right-header .header-button a {
+    color: #FFF;
+}
+
+.pos .pos-content {
+    width: 100%;
+    position: absolute;
+    top: 48px;
+    bottom: 0;
+    background: #F0EEEE;
+}
+
+.pos .pos-content .window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: table;
+    border: none;
+    overflow: hidden;
+}
+
+.pos .pos-content .window .sub-window-container,
+.pos .screen .left-pane .window .cart-window-container,
+.pos .screen .left-pane .window .keypad-window-container {
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    position: relative;
+}
+
+.pos .pos-content .window .sub-window-container-fix,
+.pos .screen .left-pane .window .cart-window-container-fix,
+.pos .screen .left-pane .window .keypad-window-container-fix {
+    height: 100%;
+    position: relative;
+}
+
+.pos .screen {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: auto;
+    /*-webkit-overflow-scrolling: touch;*/
+}
+
+.pos .screen .left-pane {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 420px;
+    top: 0;
+    bottom: 0;
+    border-right: solid 3px #1e88e5;
+    background: #F0EEEE;
+}
+
+.pos .screen .left-pane .window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: table;
+    border: none;
+    overflow: hidden;
+}
+
+.pos .screen .left-pane .window .cart-window {
+    display: table-row;
+    width: 100%;
+    height: 100%;
+}
+
+.pos ul, .pos ol {
+    padding: 0;
+    margin: 0;
+}
+
+.pos ul, .pos li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.pos .screen .right-pane {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 420px;
+    right: 0;
+    vertical-align: top;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.pos .left-pane .order-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+.pos .left-pane .order-container .order-scroll {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.pos .left-pane .order-container .order-scroll .order {
+    background: white;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    font-size: 16px;
+    text-align: left;
+    max-width: 560px;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.pos .order .order-empty {
+    text-align: center;
+    margin: 48px;
+    color: #DDD;
+}
+
+.pos .order .order-empty .mdi {
+    font-size: 64px;
+}
+
+.pos .order .order-empty h4 {
+    font-size: 20px;
+    color: #DDD;
+}
+
+.pos .order .order-line.selected {
+    background: rgba(140,143,183,0.2);
+    -webkit-transition: background 250ms ease-in-out;
+    -moz-transition: background 250ms ease-in-out;
+    transition: background 250ms ease-in-out;
+    cursor: default;
+}
+
+.pos .order .order-line {
+    width: 100%;
+    margin: 0;
+    padding: 3px 15px 10px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background 250ms ease-in-out;
+    -moz-transition: background 250ms ease-in-out;
+    transition: background 250ms ease-in-out;
+}
+
+.pos .order-line p {
+    line-height: 25px;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+
+.pos .order-line ul {
+    -webkit-margin-before: 0 !important;
+    -webkit-margin-after: 0 !important;
+    -webkit-margin-start: 0 !important;
+    -webkit-margin-end: 0 !important;
+    -webkit-padding-start: 0 !important;
+}
+
+.pos .order .order-line .product-name {
+    padding: 0;
+    display: inline-block;
+    font-weight: 600;
+    width: 70%;
+    /*overflow: hidden;*/
+    text-overflow: ellipsis;
+}
+
+.pos .order .order-line .price {
+    padding: 0;
+    font-weight: bold;
+    float: right;
+}
+
+.pos .order .order-line .info-list {
+    color: #888;
+    margin-left: 10px;
+}
+
+.pos .order .order-line .info-list em {
+    color: #777;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.pos .order .summary {
+    width: 100%;
+    text-align: right;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.pos .order .summary .line {
+    float: right;
+    margin-right: 15px;
+    margin-left: 15px;
+    padding-top: 5px;
+    border-top: solid 2px;
+    border-color: #777;
+}
+
+.pos .order .summary .total {
+    font-size: 22px;
+}
+
+.pos .order .summary .total .label {
+    padding: 0;
+    color: inherit !important;
+    line-height: inherit;
+    font-weight: inherit;
+    border-radius: 0;
+    font-size: 22px;
+}
+
+.pos .order .summary .line .sub-entry {
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    line-height: 0.5;
+}
+
+.pos .screen .left-pane .window .keypad-window-container-fix {
+    border-top: solid 3px #1e88e5;
+    /*border-top: solid 3px rgb(110, 200, 155);*/
+}
+
+.pos .action-pad {
+    display: inline-block;
+    float: left;
+    padding: 0;
+    margin: 5px 0 5px 5px;
+    text-align: center;
+    vertical-align: top;
+    width: 167px;
+    border: none;
+    border-radius: 0;
+    border-top: 1px solid;
+    border-left: 1px solid;
+    border-color: #B1B6B9;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pos .action-pad .button {
+    position: relative;
+    display: block;
+    /*height: 74px;*/
+    height: 54px;
+    width: 100%;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #666;
+    font-size: 14px;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-color: #B1B6B9;
+    transition: all 150ms linear;
+}
+
+.pos .action-pad .button:active {
+    background: black;
+    border-color: black;
+    color: white;
+}
+
+.pos .action-pad .button:hover {
+    background: #efefef;
+}
+
+.pos .action-pad .button .mdi-delete {
+    color: #ffffff;
+    font-size: 14px;
+    background: #5e5e5e;
+    padding: 5px 8px;
+    margin-right: 5px;
+    border-radius: 30px;
+}
+
+.pos button, .pos a.button {
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px 10px;
+    font-size: 11px;
+    border: 1px solid #cacaca;
+    background: #F0EEEE;
+    /*background: #cfd6d9;*/
+    border-radius: 3px;
+}
+
+.pos .action-pad .button:last-child {
+    border-bottom-left-radius: 4px;
+}
+
+.pos .action-pad .button.pay {
+    /*height: 216px;*/
+    height: 162px;
+}
+
+.pos .action-pad .button.pay .pay-circle {
+    display: block;
+    font-size: 32px;
+    line-height: 54px;
+    padding-top: 6px;
+    background: #666;
+    color: white;
+    width: 60px;
+    border-radius: 30px;
+    margin: auto auto 10px;
+}
+
+.pos .num-pad {
+    display: inline-block;
+    float: right;
+    text-align: center;
+    width: 240px;
+    margin: 5px 5px 5px 0;
+    border: none;
+    border-radius: 0;
+    border-top: 1px solid;
+    border-color: #bfbfbf;
+    border-top-right-radius: 4px;
+}
+
+.pos .num-pad button {
+    float: left;
+    height: 54px;
+    width: 60px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #666;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-color: #bfbfbf;
+    transition: all 150ms linear;
+}
+
+.pos .numpad button:active {
+    background: black;
+    color: white;
+    border-color: transparent;
+}
+
+.pos .input-button {
+    font-size: 24px;
+}
+
+.pos .numpad button:nth-child(4) {
+    border-top-right-radius: 4px;
+}
+
+.pos .mode-button.selected-mode {
+    color: white;
+    background: #1e88e5;
+    border-color: transparent;
+}
+
+.pos .screen .layout-table {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.pos .screen .header-row {
+    border: none;
+    width: 100%;
+    height: 0;
+}
+
+.pos .right-pane-header {
+    padding: 0;
+    height: 48px;
+    border-bottom: 1px solid #c7c7c7;
+    background: #d3d3d3;
+    text-align: center;
+    border-bottom: solid 3px #1e88e5;
+}
+
+.pos .breadcrumbs {
+    display: inline-block;
+    text-align: left;
+    float: left;
+}
+
+.pos .breadcrumb {
+    float: left;
+    display: inline-block;
+    line-height: 45px;
+    height: 45px;
+    min-width: 48px;
+    background: none;
+    padding: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.pos .breadcrumb:last-child {
+    padding-right: 3px;
+    border-right: 1px solid #c5c5c5;
+}
+
+.pos .breadcrumb-button.breadcrumb-home {
+    line-height: 49px;
+    padding: 0;
+    width: 50px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.pos .breadcrumb-button {
+    display: inline-block;
+    padding: 0 9px;
+    vertical-align: top;
+    color: #808080;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pos .select-category {
+    position: absolute;
+    right: 240px;
+}
+
+.pos .select-category select {
+    border: 1px solid #cecbcb;
+    padding: 8px 8px 6px 8px;
+    margin: 4px 25px 9px;
+    font-size: 13px;
+    height: 37px;
+    border-radius: 4px;
+    color: #666;
+}
+
+.pos .search-box {
+    position: absolute;
+    right: 2px;
+}
+
+.pos .search-box input {
+    /*width: 100px;*/
+    border: 1px solid #cecbcb;
+    padding: 10px 20px 6px 38px;
+    margin: 4px 6px 9px;
+    background: white url("../img/pos/search.png") no-repeat 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #666;
+}
+
+.pos .search-clear {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 11px;
+    left: 11px;
+    cursor: pointer;
+}
+
+.pos .screen .content-row {
+    width: 100%;
+    height: 100%;
+}
+
+.pos .screen .content-cell {
+    height: 100%;
+}
+
+.pos .screen .content-cell {
+    width: 100%;
+}
+
+.pos .screen .content-cell .content-container {
+    height: 100%;
+    position: relative;
+}
+
+.pos .product-list-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.pos .product-list-scroll {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.pos .product-list {
+    padding: 10px;
+    text-align: left;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.pos .product {
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    line-height: 100px;
+    font-size: 12px;
+    margin: 8px !important;
+    width: 122px;
+    height: 115px;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.pos .product .product-img {
+    position: relative;
+    width: 120px;
+    height: 100px;
+    background: white;
+    text-align: center;
+}
+
+.pos .product .product-img img {
+    /*max-height: 100px;*/
+    max-width: 120px;
+    vertical-align: middle;
+}
+
+.pos .product .price-tag {
+    position: absolute;
+    top: 7px;
+    right: 0;
+    vertical-align: top;
+    color: white;
+    line-height: 13px;
+    background: #fc4b6c;
+    padding: 7px 10px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.pos .product .product-name {
+    position: absolute;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    bottom: 0;
+    top: auto;
+    line-height: 14px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: -webkit-linear-gradient(-90deg,rgba(255,255,255,0.3),rgba(255,255,255,1), rgba(255,255,255,1));
+    background: -moz-linear-gradient(-90deg,rgba(255,255,255,0.3),rgba(255,255,255,1), rgba(255,255,255,1));
+    background: -ms-linear-gradient(-90deg,rgba(255,255,255,0.3),rgba(255,255,255,1), rgba(255,255,255,1));
+    padding: 20px 10px 3px;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.pos .product .ribbon {
+    padding: 0 10px;
+    line-height: 31px;
+}
+
+/*==============================================================
+ Toast UI Notification
+ ============================================================== */
+.jq-icon-info {
+    background-color: #1e88e5;
+    color: #ffffff;
+}
+
+.jq-icon-success {
+    background-color: #26c6da;
+    color: #ffffff;
+}
+
+.jq-icon-error {
+    background-color: #fc4b6c;
+    color: #ffffff;
+}
+
+.jq-icon-warning {
+    background-color: #ffb22b;
+    color: #ffffff;
+}
+
+.alert-rounded {
+    border-radius: 60px;
+}
+
+/*==============================================================
+ POS Payment Drawer
+ ============================================================== */
+.sideNav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 95;
+    top: 0;
+    left: 0;
+    color: #888888;
+    background: rgb(240, 238, 238);
+    overflow-x: hidden;
+    padding-top: 50px;
+    transition: 0.5s;
+}
+
+.sideNav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sideNav .closeBtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.nav-top {
+    color: #888888;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #888888;
+}
+
+.nav-top h3 {
+    color: #888888;
+}
+
+.payment {
+    height: 100%;
+    border-right: 1px dashed #888888;
+}
+
+.payment h2, .payment h3,
+.payment h4, .payment h5 {
+    color: #888888;
+}
+
+.payment .payment-method .payment-btn {
+    width: 100%;
+    text-align: center;
+    padding: 25px 0;
+    color: #888888;
+    font-size: 20px;
+    background: #e2e2e2;
+    border: 2px solid #888888;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.payment .payment-method .payment-btn:first-child {
+    margin-top: 20px;
+}
+
+.payment .payment-method .payment-btn:hover,
+.payment .payment-method .payment-btn:focus,
+.payment .payment-method .payment-btn:active,
+.payment .payment-method .payment-btn.selected {
+    color: #FFFFFF;
+    background: #888888;
+    border: 2px solid #888888;
+    transition: 0.2s all;
+    cursor: pointer;
+}
+
+.payment .payment-input {
+    min-height: 500px;
+    padding-left: 50px;
+    padding-right: 65px;
+    display: block;
+    z-index: 95;
+    border-left: 1px dashed #888888;
+}
+
+.payment .payment-input .payment-input-scroll {
+    width: 100%;
+    height: 100%;
+}
+
+.payment .payment-input .cart-total {
+    text-align: center;
+    /*font-weight: 900;
+    font-size: 48px;*/
+    width: 100%;
+    border-bottom: 1px dashed #888888;
+}
+
+.payment .payment-input .cart-total h1 {
+    font-weight: 900;
+    font-size: 48px;
+}
+
+.payment .payment-input .input-boxes input.input-lg {
+    font-size: 20px;
+    height: 50px;
+}
+
+
+
