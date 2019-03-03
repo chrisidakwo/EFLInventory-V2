@@ -17,7 +17,6 @@ yarn-error.log
 /public/inventory
 /public/flags
 /app/Http/Controllers/TestController.*
-/config/app.*
 /public/css/style.css
 /public/css/spinners.css
 /public/css/steps.css
