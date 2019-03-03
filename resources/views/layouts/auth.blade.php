@@ -13,7 +13,7 @@
 		<!-- Styles -->
 		<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/colors/green.css') }}" id="theme" rel="stylesheet">
-		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/theme/app.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	</head>
 	<body class="auth-page">
@@ -23,14 +23,12 @@
 			</svg>
 		</div>
 
-
 		@yield("content")
-
 
 		<!-- Scripts -->
 		<script src="{{ asset('js/jquery.min.js') }}"></script>
 		<script src="{{ asset('js/popper.min.js') }}"></script>
 		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-		<script src="{{ asset('js/custom.min.js') }}"></script>
+		<script src="{{ asset('js/theme/custom.min.js') }}"></script>
 	</body>
 </html>

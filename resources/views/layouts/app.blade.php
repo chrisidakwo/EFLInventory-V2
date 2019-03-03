@@ -14,9 +14,9 @@
     <link href="{{ asset('css/bootstrap-glyphicons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     @stack("extra-css")
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/theme/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/colors/blue.css') }}" id="theme" rel="stylesheet">
+    <link href="{{ asset('css/theme/colors/blue.css') }}" id="theme" rel="stylesheet">
 </head>
 <body class="fix-header fix-sidebar card-no-border">
     <div class="preloader">
@@ -220,7 +220,7 @@
     <script src="{{ asset('js/waves.js') }}"></script>
     <script src="{{ asset('js/sticky-kit.min.js') }}"></script>
     <script src="{{ asset('js/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ asset('js/custom.min.js') }}"></script>
+    <script src="{{ asset('js/theme/custom.min.js') }}"></script>
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/HelperFunctions.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>

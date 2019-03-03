@@ -3,7 +3,7 @@
  */
 
 // Ascertain if an item exists in an array
-var contains = function(needle) {
+var contains = function (needle) {
     // Per spec, the way to identify NaN is that it is not equal to itself
     var findNaN = needle !== needle;
     var indexOf;
@@ -34,7 +34,7 @@ var contains = function(needle) {
 };
 
 
-var collectiblesContain = function(haystack, needle) {
+var collectiblesContain = function (haystack, needle) {
     var exists = false;
     for(var item in haystack) {
         if(item == needle){
@@ -49,13 +49,13 @@ var collectiblesContain = function(haystack, needle) {
 
 // Convert an object to array
 // returns an array of object keys
-var objectToArray = function(obj) {
+var objectToArray = function (obj) {
     return Object.keys(obj).map(function (k) { return obj[k];})
 };
 
 
 // Count the number of occurrence of an item in an array
-var count = function(haystack, item) {
+var count = function (haystack, item) {
     return haystack.reduce(function (n, val) {
         return n + (val == item);
     }, 0);
@@ -91,7 +91,7 @@ var clearConsole = function() {
 
 
 // Returns an array without the rejected item
-var without = function without(list, rejectedItem) {
+var without = function (list, rejectedItem) {
     return list.filter(function (item) {
         return item !== rejectedItem;
     }).map(function (item) {
@@ -101,7 +101,7 @@ var without = function without(list, rejectedItem) {
 
 // Returns a camel-case string
 // abc-def_ghi -> abcDefGhi
-var camelize = function camelize(str) {
+var camelize = function (str) {
     return str.replace(/[\-_+](\w)/g, function (match) {
         return match.charAt(1).toUpperCase();
     });
