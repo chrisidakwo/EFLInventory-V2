@@ -35,6 +35,7 @@ class ProductController extends Controller {
         if($request->user()->authorizeRoles(["Manager"])) {
             $products = new POSProduct();
             $products = $products->all();
+
             return view("products.show", compact('products'));
         } else {
             abort(401, "You do not have the required authorization.");
@@ -91,7 +92,7 @@ class ProductController extends Controller {
         $prefix = str_replace(" ", "-", $request["name"]);
         $image_name = "{$prefix}.{$image->getClientOriginalExtension()}";
         $thumb_image_name = "{$prefix}-thumb.{$image->getClientOriginalExtension()}";
-        $saveDirectory = public_path("inventory\\products\\" . $request["name"]);
+        $saveDirectory = public_path("inventory". DIRECTORY_SEPARATOR ."products" . DIRECTORY_SEPARATOR . $request["name"]);
 
         // resize the image
         $manager = new ImageManager(array("driver" => "gd"));
@@ -99,11 +100,12 @@ class ProductController extends Controller {
         $thumb_image = $manager->make($image)->fit(250, 250);
 
         try{
-            \File::exists($saveDirectory) or \File::makeDirectory($saveDirectory, 0775, false, true);
+            \File::exists($saveDirectory) or \File::makeDirectory($saveDirectory, 0775, true, true);
 
-            $image->save(($saveDirectory . "\\" . $image_name));
-            $thumb_image->save(($saveDirectory . "\\" . $thumb_image_name));
+            $image->save($saveDirectory . DIRECTORY_SEPARATOR . $image_name);
+            $thumb_image->save($saveDirectory . DIRECTORY_SEPARATOR . $thumb_image_name);
         } catch(NotWritableException $e) {
+            dd($e);
         }
 
         // Retrieve data from POST request

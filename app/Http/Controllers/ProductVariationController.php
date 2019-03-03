@@ -25,8 +25,7 @@ class ProductVariationController extends Controller
     public function store(Request $request) {
         if($request->user()->authorizeRoles(["Manager"])) {
             $this->validate($request, [
-                //"variation_name" => "required|unique:product_variations|max:100",
-                "variation-image" => "required|image|mimes:jpeg,png,jpg|max:34748",
+                "variation-image" => "required|file|max:34748",
             ]);
 
             // Handle variation name
@@ -49,7 +48,7 @@ class ProductVariationController extends Controller
             $image = $request->file("variation-image");
             $image_name = str_replace(" ", "-", $variation_name) . "." . $image->getClientOriginalExtension();
             $thumb_image_name = str_replace(" ", "-", $variation_name) . "-thumb." . $image->getClientOriginalExtension();
-            $saveDirectory = public_path("inventory\\products\\" . $request["product_name"]);
+            $saveDirectory = public_path("inventory". DIRECTORY_SEPARATOR. "products" . DIRECTORY_SEPARATOR . $request["product_name"]);
 
             // resize the image
             $manager = new ImageManager(array("driver" => "gd"));
@@ -60,8 +59,8 @@ class ProductVariationController extends Controller
             try {
                 \File::exists($saveDirectory) or \File::makeDirectory($saveDirectory, 0775, false, true);
 
-                $save_image->save(($saveDirectory . "\\" . $image_name));
-                $thumb_image->save(($saveDirectory . "\\" . $thumb_image_name));
+                $save_image->save($saveDirectory . DIRECTORY_SEPARATOR . $image_name);
+                $thumb_image->save($saveDirectory . DIRECTORY_SEPARATOR . $thumb_image_name);
             } catch (NotWritableException $e) {
             }
 

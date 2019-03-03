@@ -46,11 +46,11 @@ class Dealer extends Model
             // Associate relationship
             $brands = $values["brands"];
             if(!is_array($brands) && is_string($brands)) {
-                $brands = explode(", ", $brands);
+                $brands = explode(",", $brands);
             }
 
             foreach ($brands as $brand) {
-                $b = Brand::where("name", $brand)->first();
+                $b = Brand::whereId($brand)->first();
                 if($b) {
                     $dealer->brands()->attach(Brand::find($b->id));
                 }

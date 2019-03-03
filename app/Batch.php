@@ -51,7 +51,7 @@ class Batch extends Model {
         $entry->variation_id = $values["variation_id"];
         $entry->ordered_quantity = $values["quantity"];
         $entry->current_quantity = $values["quantity"];
-        $entry->total_cost = $values["total_cost"];
+//        $entry->total_cost = $values["total_cost"];
         $entry->unit_cost = $values["unit_cost"];
         $entry->retail_price = $values["retail_price"];
         $entry->wholesale_price = $values["wholesale_price"];

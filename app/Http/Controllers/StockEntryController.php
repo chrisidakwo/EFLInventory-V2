@@ -25,15 +25,15 @@ class StockEntryController extends Controller {
 
     public function store(Request $request) {
         if($request->user()->authorizeRoles(["Manager"])) {
-            /*$this->validate($request, array(
+            $this->validate($request, array(
                 "product" => "required",
                 "prod-variation" => "required",
                 "quantity" => "required",
-                "total_cost" => "required",
-                "unit_cost" => "required",
-                "retail_price" => "required",
-                "expiry_date" => "required"
-            ));*/
+                "total-cost" => "required",
+                "unit-cost" => "required",
+                "retail-price" => "required",
+                "expiry-date" => "required"
+            ));
 
             $entry = new Batch();
 

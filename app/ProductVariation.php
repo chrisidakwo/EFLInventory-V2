@@ -38,7 +38,6 @@ class ProductVariation extends Model {
     }
 
     public function totalPurchaseAmount(array $date_range=null) {
-        $totalAmt = "";
         $transactions = PurchaseHistory::all()->where("variation_id", "=", $this->id);
 
         if(!$date_range) {
@@ -52,7 +51,6 @@ class ProductVariation extends Model {
     }
 
     public function totalSalesAmount(array $date_range=null) {
-        $totalAmt = "";
         $transactions = SalesHistory::all()->where("variation_id", "=", $this->id);
 
         if(!$date_range) {
@@ -80,11 +78,6 @@ class ProductVariation extends Model {
         $variation->stock = $values["stock"];
         $variation->stock_threshold = $values["stock_threshold"];
 
-        // Associate relationship
-        $product = Product::find($values["product_id"]);
-        $variation->product()->associate($product);
-
-
         if($variation->save()) {
             // Add action history
             $description = "Added new product variation: " . $values["name"];
@@ -107,10 +100,6 @@ class ProductVariation extends Model {
         $variation->size = $values["size"];
         $variation->stock = $values["stock"];
         $variation->stock_threshold = $values["stock_threshold"];
-
-        // Associate relationship
-        $product = Product::find($values["product_id"]);
-        $variation->product()->associate($product);
 
         if($variation->save()) {
             // Add action history

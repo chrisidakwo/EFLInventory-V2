@@ -57,13 +57,6 @@ class Product extends Model {
         $product->variate_by = $values["variate_by"];
         $product->status = 1;
 
-        // Associate relationship
-        $brand = Brand::find($values["brand"]);
-        $product->brand()->associate($brand);
-
-        $subCategory = SubCategory::find($values["subcategory"]);
-        $product->subcategory()->associate($subCategory);
-
         $description = "Added a new product: {$values["name"]}";
         ActionHistory::AddNewActionHistory($description);
 
@@ -87,13 +80,6 @@ class Product extends Model {
         $product->brand_id = $values["brand"];
         $product->variate_by = $values["variate_by"];
         $product->status = 1;
-
-        // Associate relationship
-        $brand = Brand::find($values["brand"]);
-        $product->brand()->associate($brand);
-
-        $subCategory = SubCategory::find($values["subcategory"]);
-        $product->subcategory()->associate($subCategory);
 
         $description = "Updated product details: {$values["name"]}";
         ActionHistory::AddNewActionHistory($description);
