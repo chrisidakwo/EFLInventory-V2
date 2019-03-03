@@ -58,8 +58,8 @@ If you're gonna be running the SQL script, please ensure to look through it befo
 The `database.sql` file is located within the `bootstrap` directory. In there you'll also find a `config.app.php` file. Rename it to `app.php`, update the necessary details and move it to the `config` directory
 <p>
 Manager login details:
-<br>Username: admin
-<br>Password: admin 
+<br>Username: chrisidakwo
+<br>Password: secret 
 </p>
 
 ## User Interface
