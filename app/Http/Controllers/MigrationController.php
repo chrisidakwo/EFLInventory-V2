@@ -28,7 +28,7 @@ class MigrationController extends Controller {
      */
     public function store(Request $request) {
         $file = $request->file("file-record");
-        $table = $request["record"];
+        $table = $request->get("record");
         $success =  ExcelMigrationHelper::migrate($table, $file);
 
         if(isset($success["success"])) {

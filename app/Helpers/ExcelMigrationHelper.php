@@ -2,8 +2,6 @@
 /**
  * Class ExcelMigrationHelper.
  *
- * Description Here
- *
  * @author: Ekojoka Christolight Idakwo <chris.idakwo@gmail.com>
  * @date: 30/12/2017
  * @time: 09:10

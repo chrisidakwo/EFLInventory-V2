@@ -27,20 +27,25 @@ EFLInventory V2 is a simple-to-use, web-based inventory and point-of-sale applic
 [SEE MORE](meta/readme.md)
 
 ## Setup
-Easiest way to get started with this:
+1. Easiest way to get started with this:
 ```shell
 git clone https://github.com/chrisidakwo/eflinventory-v2.git
 cd eflinventory-v2
 ```
 
-Next, run from command prompt
+2. Run from command prompt
 ```shell
 composer install
 ```
 
-Rename `.env.example` to `.env`. Update details to suit your server & DB setup.
+3. Copy `.env.example` to `.env`. Update details to suit your server & DB setup.
 
-To create database tables either run these two commands:
+4. Generate application key using: 
+``
+php artisan key:generate
+``
+
+5. To create database tables either run these two commands:
 ```shell
 php artisan migrate
 

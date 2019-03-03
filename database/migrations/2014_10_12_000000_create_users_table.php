@@ -16,11 +16,11 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
-            $table->string('username', 12)->unique();
+            $table->string('username', 12)->unique()->index();
             $table->string('password');
-            $table->boolean('is_superadmin')->default(false);
-            $table->string('is_staff')->default(true);
-            $table->string('last_login', 50);
+            $table->boolean('is_superadmin')->default(false)->index();
+            $table->string('is_staff')->default(true)->index();
+            $table->dateTime('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

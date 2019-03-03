@@ -377,25 +377,27 @@
                                                 <div class="product-list-container">
                                                     <div class="product-list-scroll touch-scroll">
                                                         <div class="product-list">
-                                                            @foreach($products as $product)
-                                                                <div class="product" id="p-{{ $product->batch_id }}"
-                                                                     data-batch-id="{{ $product->batch_id }}"
-                                                                     data-name="{{ $product->variation_name }}"
-                                                                     data-price="{{ $product->retail_price }}">
-                                                                    <div class="product-img">
-                                                                        <img src="{{ asset("inventory/products/{$product->product_name}/{$product->variation_img}") }}"
-                                                                             class="img-fluid">
-                                                                        <span class="price-tag">
+                                                            @if(isset($products))
+                                                                @foreach($products as $product)
+                                                                    <div class="product" id="p-{{ $product->batch_id }}"
+                                                                         data-batch-id="{{ $product->batch_id }}"
+                                                                         data-name="{{ $product->variation_name }}"
+                                                                         data-price="{{ $product->retail_price }}">
+                                                                        <div class="product-img">
+                                                                            <img src="{{ asset("inventory/products/{$product->product_name}/{$product->variation_img}") }}"
+                                                                                 class="img-fluid">
+                                                                            <span class="price-tag">
                                                                             <strong>
                                                                                 <span style="text-decoration: line-through">N</span><span class="price">{{ $product->retail_price }}</span>
                                                                             </strong>
                                                                         </span>
+                                                                        </div>
+                                                                        <div class="product-name">
+                                                                            {{ $product->variation_name }}
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="product-name">
-                                                                        {{ $product->variation_name }}
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
+                                                                @endforeach
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
