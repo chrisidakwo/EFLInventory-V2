@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Your App Name'),
+    'name' => env('APP_NAME', 'EFLInventory'),
 
     /*
     |--------------------------------------------------------------------------
