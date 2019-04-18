@@ -1,4 +1,6 @@
-## About EFLInventory-V2
+**Considering the project is getting some few interest, I'll work on improving it.**
+
+# About EFLInventory-V2
 EFLInventory V2 is a simple-to-use, web-based inventory and point-of-sale application written in PHP using Laravel framework. It uses MySQL as the data backend and has a Bootstrap 4 material-like user interface. It is designed to assist small-scale retail stores with keeping track of items and inventory, and generate reports based on inventory, purchases and sales.
 
 ## Well, What Can I Do With It?
