@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace EFLInventory\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -8,13 +8,13 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
+     * This namespace is EFLInventorylied to your controller routes.
      *
      * In addition, it is set as the URL generator's root namespace.
      *
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = 'EFLInventory\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the routes for the application.
+     * Define the routes for the EFLInventorylication.
      *
      * @return void
      */
@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "web" routes for the application.
+     * Define the "web" routes for the EFLInventorylication.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
@@ -57,7 +57,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "api" routes for the application.
+     * Define the "api" routes for the EFLInventorylication.
      *
      * These routes are typically stateless.
      *

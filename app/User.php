@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'password', "name", "last_login"
+        'name', 'email', 'password',
     ];
 
     /**
@@ -28,51 +29,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles() {
-        return $this->belongsToMany(Role::class);
-    }
-
-    /**
-     * Returns the name of assigned role
-     * @return mixed
-     */
-    public function getRoleName() {
-        $roles = $this->roles()->get()->first();
-        return $roles["name"];
-    }
-
-    /**
-     * @param $roles
-     * @return bool
-     */
-    public function authorizeRoles($roles)
-    {
-        if(is_array($roles)) {
-            return $this->hasAnyRole($roles);
-        }
-
-        return $this->hasRole($roles);
-    }
-
-
-    /**
-     * Check multiple roles
+     * The attributes that should be cast to native types.
      *
-     * @param $roles
-     * @return bool
+     * @var array
      */
-    public function hasAnyRole($roles) {
-        return null !== $this->roles()->whereIn("name", $roles)->first();
-    }
-
-    /**
-     * Check one role
-     * @param $role
-     * @return bool
-     */
-    public function hasRole($role) {
-        return null !== $this->roles()->where("name", $role)->first();
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }

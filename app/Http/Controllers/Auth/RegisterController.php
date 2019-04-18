@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace EFLInventory\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Role;
-use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
+use EFLInventory\User;
+use EFLInventory\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -34,27 +33,11 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
+     * @return void
      */
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application registration form.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function showRegistrationForm(Request $request) {
-        try {
-            if ($request->user()->authorizeRoles(["Manager"])) {
-                return view('auth.register');
-            }
-        } catch (\Exception $ex) {
-            return redirect("/login");
-        }
-
-        abort(401, "This action is unauthorized.");
+    public function __construct()
+    {
+        $this->middleware('guest');
     }
 
     /**
@@ -63,30 +46,27 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data) {
+    protected function validator(array $data)
+    {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|username|max:12|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ], ["username"=>"Username already exists! Please try another!"]);
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \EFLInventory\User
      */
-    protected function create(array $data) {
-        $user =  User::create([
+    protected function create(array $data)
+    {
+        return User::create([
             'name' => $data['name'],
-            'username' => $data['username'],
-            'password' => bcrypt($data['password']),
-            'last_login' => ""
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
-
-        $user->roles()->attach(Role::where("name", "Employee")->first());
-
-        return $user;
     }
 }

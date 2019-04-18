@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace EFLInventory\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\User;
-use Carbon\Carbon;
+use EFLInventory\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -33,30 +30,10 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
+     * @return void
      */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
-
-    public function username() {
-        return 'username';
-    }
-
-    /**
-     * The user has been authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
-    {
-        // update last login info
-        $active_user = User::find($user->id);
-        $active_user->last_login = Carbon::now()->toDateTimeString();
-        $active_user->save();
-
-        return redirect()->intended($this->redirectPath());
     }
 }

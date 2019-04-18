@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Exceptions;
+namespace EFLInventory\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -30,8 +29,6 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
      * @param  \Exception  $exception
      * @return void
      */
@@ -49,18 +46,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($this->isHttpException($exception)) {
-            return $this->renderHttpException($exception);
-        } else {
-            return parent::render($request, $exception);
-        }
-    }
-
-    protected function renderHttpException(HttpException $e) {
-        if(view()->exists("errors." . $e->getStatusCode())) {
-            return response()->view("errors." . $e->getStatusCode(), [], $e->getStatusCode());
-        } else {
-            return response()->view("errors.404", [], $e->getStatusCode());
-        }
+        return parent::render($request, $exception);
     }
 }

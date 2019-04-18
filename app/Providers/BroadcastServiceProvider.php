@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace EFLInventory\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Broadcast;
 class BroadcastServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Bootstrap any EFLInventorylication services.
      *
      * @return void
      */
