@@ -1,8 +1,11 @@
 <?php
 
-namespace EFLInventory\Traits;
+namespace EFLInventory\Entities;
 
-trait UsesStringId {
+
+use Illuminate\Database\Eloquent\Model;
+
+class HasStringID extends Model {
     /**
      * @var string
      */
@@ -17,4 +20,9 @@ trait UsesStringId {
      * @var bool
      */
     public $incrementing = false;
+
+    /**
+     * @var array
+     */
+    protected $visible = ["id"];
 }

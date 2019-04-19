@@ -10,15 +10,20 @@ class CreateUsersTable extends Migration {
      *
      * @return void
      */
-    public function up() {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+    public function up(): void {
+        Schema::create('users', static function (Blueprint $table) {
+            $table->string('id')->primary();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('username', 12)->index("ix_users_username");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_admin')->default(false)->index();
+            $table->string('is_staff')->default(true)->index();
+            $table->dateTime('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->unique("username", "uix_users_username");
         });
     }
 
@@ -27,7 +32,12 @@ class CreateUsersTable extends Migration {
      *
      * @return void
      */
-    public function down() {
-        Schema::dropIfExists('users');
+    public function down(): void {
+        Schema::table("users", static function (Blueprint $table) {
+            $table->dropIndex("ix_users_username");
+            $table->dropUnique("uix_users_username");
+
+            $table->drop();
+        });
     }
 }
