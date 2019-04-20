@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', static function () {
+    return redirect()->route("home");
 });
+Route::get('/dashboard', 'HomeController@index')->name('home');
