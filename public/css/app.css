@@ -22,8 +22,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: "Gilroy", "Product Sans", "Roboto", "Helvetica", "Arial", -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-a, a:hover, a:focus, a:-webkit-any-link:active {
+a, a:hover, a:focus, a:active, a:-webkit-any-link:active {
     text-decoration: none;
+    outline: none !important;
 }
 
 ol,
@@ -54,9 +55,6 @@ button, .btn {
     transition: all .2s ease;
 }
 
-
-
-
 /**********************************************
 ******************* SIDEBAR *******************
 **********************************************/
@@ -65,9 +63,65 @@ button, .btn {
     background-color: #0c0d11;
     width: 50px;
     height: 100vh;
-
 }
 
+.sidebar .menu-items {
+    margin-top: 45px;
+}
+
+.sidebar .menu-items a {
+    color: #ffffff;
+    display: block;
+    position: relative;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sidebar .menu-items a:hover, .sidebar .menu-items a:active, .sidebar .menu-items a:focus,
+.sidebar .menu-items a.active {
+    background-color: #343a40;
+    transition: all 0.2s ease;
+}
+
+.sidebar .menu-items .has-dropdown {
+    position: relative;
+    display: block;
+}
+
+.sidebar .menu-items .has-dropdown .sidebar-menu-dropdown {
+    background-color: #0c0d11;
+    position: absolute;
+    display: none;
+    left: 50px;
+    width: 150px;
+    top: 0;
+}
+
+.sidebar .menu-items .has-dropdown:hover .sidebar-menu-dropdown {
+    display: block;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu-dropdown a.dropdown-link {
+    text-align: left;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.sidebar-menu-dropdown a.dropdown-link:hover, .sidebar-menu-dropdown a.dropdown-link:focus,
+.sidebar-menu-dropdown a.dropdown-link:active {
+    background-color: #343a40;
+}
+
+
+/**********************************************
+******************* CONTENT *******************
+**********************************************/
 .main-content {
     width: calc(100% - 50px);
     background-color: #ffffff;
@@ -76,7 +130,6 @@ button, .btn {
 .content {
     padding: 20px;
 }
-
 
 /**********************************************
 ******************* NAVBAR *******************
@@ -89,6 +142,36 @@ button, .btn {
     align-self: center;
 }
 
+.nav-link {
+    outline: none !important;
+}
+
+/**********************************************
+******************* DROPDOWN ******************
+**********************************************/
+.dropdown-menu {
+    font-size: inherit;
+    padding: 5px;
+    border: 1px solid rgba(0,0,0,.10);
+    border-radius: 2px;
+}
+
+.dropdown-item {
+    color: #555A5C;
+    padding: .25rem .75rem;
+}
+
+.dropdown-item:hover {
+    color: #44494b;
+    text-decoration: none;
+    background-color: #f4f5f6;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 
 /**********************************************
 ******************* FOOTER *******************
@@ -96,4 +179,5 @@ button, .btn {
 footer {
     border-top: 1px solid #ced3d5;
     padding: 5px 20px;
+    left: 50px !important;
 }

@@ -68,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => EFLInventory\User::class,
+            'model' => EFLInventory\Models\Auth\User::class,
         ],
 
         // 'users' => [

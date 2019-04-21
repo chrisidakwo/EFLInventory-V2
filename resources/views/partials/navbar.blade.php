@@ -10,8 +10,14 @@
 
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-3">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route("login") }}">User</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ auth()->user()->name }}
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="" class="dropdown-item">My Account</a>
+                        </div>
                     </li>
 
                     <li class="nav-item">

@@ -1,5 +1,6 @@
 <?php
 
+use EFLInventory\Models\Auth\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder {
@@ -7,9 +8,11 @@ class UsersTableSeeder extends Seeder {
      * Run the database seeds.
      *
      * @return void
+     * @throws \Exception
      */
     public function run(): void {
-        \EFLInventory\Models\Auth\User::create([
+        User::create([
+            "id" => \EFLInventory\Support\DB::generateId(User::class),
             "name" => "EFL Administrator",
             "username" => "efl-admin",
             "password" => bcrypt("secret"),
