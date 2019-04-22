@@ -55,6 +55,12 @@ button, .btn {
     transition: all .2s ease;
 }
 
+.btn-sm {
+    padding:.45rem .75rem;
+    font-size: 90%;
+    line-height: 12px;
+}
+
 /**********************************************
 ******************* SIDEBAR *******************
 **********************************************/
@@ -63,6 +69,7 @@ button, .btn {
     background-color: #0c0d11;
     width: 50px;
     height: 100vh;
+    z-index: 9999;
 }
 
 .sidebar .menu-items {
@@ -125,10 +132,15 @@ button, .btn {
 .main-content {
     width: calc(100% - 50px);
     background-color: #ffffff;
+    display: block;
+    position: relative;
 }
 
 .content {
     padding: 20px;
+    display: block;
+    position: relative;
+    margin-bottom: 30px;
 }
 
 /**********************************************
@@ -172,12 +184,87 @@ button, .btn {
     transition: all 0.3s ease;
 }
 
+/**********************************************
+******************** CARD *********************
+**********************************************/
+.card {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+}
+
+.stats-card {
+    border: none;
+    max-height: 300px;
+}
+
+.stats-card .card-header {
+    color: #ffffff;
+    background-color: #0c0d11;
+}
+
+.stats-card, .stats-card .card-header {
+    border: 1px solid #0c0d11;
+}
+
+.stats-card, .stats-card .card-header .card-title {
+    /*font-weight: 600;*/
+    margin-bottom: 0;
+}
+
+.stats-card .card-body .stats-card-figure-label {
+    font-size: 12px;
+}
+
+.stats-card .card-body .stats-card-figure,
+.stats-card .card-body .stats-card-figure-label {
+    margin-bottom: 0;
+}
 
 /**********************************************
-******************* FOOTER *******************
+******************** TABLE ********************
 **********************************************/
+.stats-table {
+    margin-bottom: 0;
+}
+
+.stats-table thead th {
+    border-top: 2px solid #0c0d11;
+    border-bottom: 2px solid #0c0d11;
+}
+
+/**********************************************
+******************** FORM *********************
+**********************************************/
+form label {
+    margin-bottom: 2px;
+}
+
+/**********************************************
+**************** PAGE HEADER ******************
+**********************************************/
+.page-header {
+    margin-bottom: 15px;
+}
+
+.page-header h4.page-title {
+    margin-bottom: 0;
+}
+
+    /**********************************************
+    ******************* FOOTER *******************
+    **********************************************/
 footer {
+    background: #ffffff;
     border-top: 1px solid #ced3d5;
     padding: 5px 20px;
     left: 50px !important;
+    position: absolute;
+    display: block;
+    right:0;
+    bottom:0;
+    z-index:1030
 }

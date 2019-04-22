@@ -1,11 +1,11 @@
 <section class="sidebar">
     <div class="menu-items">
         <div>
-            <a href="{{ route("home") }}" class="active" title="Dashboard">
+            <a href="{{ route("home") }}" class="{{ active("home") }}" title="Dashboard">
                 <i class="mdi mdi-home"></i>
             </a>
         </div>
-        <a href="{{ route("categories") }}" title="Categories"><i class="mdi mdi-tag-multiple"></i></a>
+        <a href="{{ route("categories") }}" class="{{ active("categories") }}" title="Categories"><i class="mdi mdi-tag-multiple"></i></a>
         <div class="has-dropdown">
             <a href="{{ route("inventory") }}" title="Inventory">
                 <i class="mdi mdi-store"></i>

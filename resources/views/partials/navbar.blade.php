@@ -9,7 +9,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarToggle">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-3">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

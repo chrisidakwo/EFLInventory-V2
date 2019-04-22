@@ -23,7 +23,7 @@ Route::group(["middleware" => "auth"], static function () {
 
 // Categories
 Route::group(["middleware" => "auth"], static function () {
-    Route::get('/categories', 'HomeController@index')->name('categories');
+    Route::get('/categories', 'Common\CategoryController@index')->name('categories');
 });
 
 Route::group(["prefix" => "category", "middleware" => ["auth"]], static function () {

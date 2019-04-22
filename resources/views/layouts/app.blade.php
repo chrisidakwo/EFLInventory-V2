@@ -18,7 +18,9 @@
             @include("partials.navbar")
 
             <main class="content">
-                @yield('content')
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
             </main>
 
             <footer class="footer fixed-bottom">&copy; Copyright {{ date("Y") }}. {{ config("app.name") }}.</footer>
