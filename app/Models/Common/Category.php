@@ -20,6 +20,13 @@ class Category extends HasStringID {
     protected $fillable = ["parent_id", "name", "slug", "depth", "type"];
 
     /**
+     * @return bool
+     */
+    public function hasParent(): bool {
+        return $this->parent()->count() > 0;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent(): BelongsTo {
