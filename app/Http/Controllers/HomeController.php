@@ -106,8 +106,8 @@ class HomeController extends Controller {
         }
 
         $damagedItems = (int) DamagedProducts::query()->where(static function ($query) use ($month, $year) {
-            $query->whereRaw('month(created_at)', $month)
-                ->whereRaw('year(created_at)', $year);
+            $query->whereRaw("month(created_at) = $month")
+                ->whereRaw("year(created_at) = $year");
         })->sum('quantity');
 
         DB::table('inventory_summaries')->insert([

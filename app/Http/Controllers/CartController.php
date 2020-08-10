@@ -12,19 +12,12 @@ use Carbon\Carbon;
 use Cart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use NumberFormatter;
 use Response;
 
 class CartController extends Controller {
     public function __construct() {
         $this->middleware('auth');
-    }
-
-    public function test() {
-        $last_receipt_no = SalesGroup::all()->sortByDesc('id')->first()->receipt_no;
-        $num = $last_receipt_no + 1;
-        //var_dump($num);
-
-        die();
     }
 
     /**
@@ -186,7 +179,10 @@ class CartController extends Controller {
         // Get a comma-separated string of names of all products in cart
         $product_names = '';
         foreach ($items as $item) {
-            $product_names .= "{$item->name}, ";
+            $quantity = title_case((new NumberFormatter('en', NumberFormatter::SPELLOUT))
+                ->format($item->quantity));
+
+            $product_names .= "{$quantity} {$item->name}, ";
         }
 
         $last_receipt_no = 10285142;

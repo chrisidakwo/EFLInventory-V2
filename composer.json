@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "ext-json": "*",
+        "ext-intl": "*",
         "darryldecode/cart": "^4.0",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
