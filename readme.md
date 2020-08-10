@@ -1,4 +1,4 @@
-**Considering the project is getting some few interest, I'll work on improving it.**
+**A new version of this application is in progress using Laravel and Vue. Optimized for use with Electron.** 
 
 # About EFLInventory-V2
 EFLInventory V2 is a simple-to-use, web-based inventory and point-of-sale application written in PHP using Laravel framework. It uses MySQL as the data backend and has a Bootstrap 4 material-like user interface. It is designed to assist small-scale retail stores with keeping track of items and inventory, and generate reports based on inventory, purchases and sales.
@@ -57,7 +57,7 @@ php artisan migrate:seed
 or run the `database.sql` script.
 
 If you're gonna be running the SQL script, please ensure to look through it before running. It's not a harmful script, but just be sure.
-The `database.sql` file is located within the `bootstrap` directory. In there you'll also find a `config.app.php` file. Rename it to `app.php`, update the necessary details and move it to the `config` directory
+The `database.sql` file is located within the `bootstrap` directory.
 <p>
 Manager login details:
 <br>Username: chrisidakwo
@@ -67,18 +67,11 @@ Manager login details:
 ## User Interface
 [Material Pro Admin Template](https://themeforest.net/item/materialpro-bootstrap-4-admin-template/20203944) is the UI theme used for this application. 
 
-## Known Issues (as of 31st Dec 2017)
-- `js.printArea` plugin duplicates the receipt for printing.
+## Known Issues (as of 10th Aug 2020)
 - Unhandled exceptions for migration using Excel spreadsheets.
-- JS click function is not triggered on filtered products in POS (making it difficult to use search bar or barcode scanner).
 
 ## TODO
-- Code refactoring, tests, and bug fixing.
-- Enhance sales receipt customisation. Businesses should be able to add logo, specify how the date and timestamp should appear, choose font, decide to display sales clerk's name, e.t.c.
-- An option for frequent database backup (most likely as a cron job).
-- Restructure app to allow for custom RBAC.
-- Card online payment (Paystack, Stripe and/or any other).
-- Provide better report generation options (with charts and graphs)
+- Frequent database backup to Google Drive or Dropbox
 
 ## License
 EFLInventory-V2 is an open-source software licensed under the [GPU v3 License](https://www.google.com.ng/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwin57Oi5szYAhULBcAKHS0RAQ8QFggnMAA&url=https%3A%2F%2Fwww.gnu.org%2Flicenses%2Fgpl-3.0.en.html).
