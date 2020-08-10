@@ -31,5 +31,6 @@ yarn-error.log
 /public/img/brand/Untitled-2.png
 .gitmsg
 _ide_helper.php
-meta.phpstorm.php
+.phpstorm.meta.php
 Procfile
+.php_cs.cache

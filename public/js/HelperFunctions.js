@@ -63,7 +63,7 @@ var count = function (haystack, item) {
 
 
 // Format a number from 15892 to 15,892.00
-// Also allows fot adding currency where needed
+// Also allows for adding currency where needed
 // Only that it doesn't support the Naira symbol as of yet
 var currencyFormat = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2

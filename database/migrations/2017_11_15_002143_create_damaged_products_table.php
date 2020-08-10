@@ -1,23 +1,21 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateDamagedProductsTable extends Migration
-{
+class CreateDamagedProductsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('damaged_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("variation_id")->unsigned();
-            $table->integer("quantity");
-            $table->string("damage_cause", 250);
-            $table->string("description", 1000);
+            $table->integer('variation_id')->unsigned();
+            $table->integer('quantity');
+            $table->string('damage_cause', 250);
+            $table->string('description', 1000);
             $table->timestamps();
         });
     }
@@ -27,8 +25,7 @@ class CreateDamagedProductsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('damaged_products');
     }
 }

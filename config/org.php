@@ -10,6 +10,7 @@
  */
 
 return [
+    'name' => 'EmiFoodLovers Limited',
 
     /*
     |--------------------------------------------------------------------------
@@ -20,8 +21,9 @@ return [
     | Can also be set from admin view.
     |
     */
-    "address" => "126 Akpajo-Eleme Road, Akpajo\nPort-Harourt, Rivers.",
+    'address' => '126 Akpajo-Eleme Road, Akpajo. Port-Harcourt, Rivers.',
 
+    'contact' => '08169771411, 08033405453',
 
     /*
     |--------------------------------------------------------------------------
@@ -31,5 +33,5 @@ return [
     | This URL is set the directory for saving product images
     |
     */
-    'product_image_path' => "/inventory/images/product",
+    'product_image_path' => '/inventory/images/product',
 ];

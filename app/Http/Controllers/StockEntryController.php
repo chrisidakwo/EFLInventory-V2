@@ -2,76 +2,99 @@
 
 namespace App\Http\Controllers;
 
-use App\Batch;
-use App\Product;
-use App\ProductVariation;
+use App\Models\Batch;
+use App\Models\Product;
+use App\Models\ProductVariation;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
+use Session;
 
 class StockEntryController extends Controller {
+    /**
+     * StockEntryController constructor.
+     */
     public function __construct() {
-        $this->middleware("auth");
+        $this->middleware('auth');
     }
 
+    /**
+     * @param Request $request
+     * @return Application|Factory|RedirectResponse|View
+     */
     public function show(Request $request) {
-        if($request->user()->authorizeRoles(["Manager"])) {
-            $products = Product::all()->sortBy("name");
-            return view("inventory.stock.entry", compact("products"));
+        if ($request->user()->authorizeRoles(['Manager'])) {
+            $products = Product::all()->sortBy('name');
+
+            return view('inventory.stock.entry', compact('products'));
         }
 
-        abort(401, "You do not have the required authorization.");
+        abort(401, 'You do not have the required authorization.');
 
+        return redirect()->home();
     }
 
-    public function store(Request $request) {
-        if($request->user()->authorizeRoles(["Manager"])) {
-            $this->validate($request, array(
-                "product" => "required",
-                "prod-variation" => "required",
-                "quantity" => "required",
-                "total-cost" => "required",
-                "unit-cost" => "required",
-                "retail-price" => "required",
-                "expiry-date" => "required"
-            ));
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     * @throws Exception
+     */
+    public function store(Request $request): RedirectResponse {
+        if ($request->user()->authorizeRoles(['Manager'])) {
+            $this->validate($request, [
+                'product' => 'required',
+                'prod-variation' => 'required',
+                'quantity' => 'required',
+                'total-cost' => 'required',
+                'unit-cost' => 'required',
+                'retail-price' => 'required',
+                'expiry-date' => 'required'
+            ]);
 
-            $entry = new Batch();
+            $product = ProductVariation::find($request['prod-variation'])->variation_name;
 
-            $product = ProductVariation::find($request["prod-variation"])->variation_name;
-
-            $diff = $request["total-cost"] - $request["amount-paid"];
+            $diff = ((float) $request['total-cost']) - ((float) $request['amount-paid']);
             $balance_due = ($diff < 0) ? 0.00 : $diff;
             $change = ($diff < 0) ? -($diff) : 0.00;
 
             $values = [
-                "product_id" => $request["product"],
-                "variation_id" => $request["prod-variation"],
-                "quantity" => $request["quantity"],
-                "total_cost" => $request["total-cost"],
-                "unit_cost" => $request["unit-cost"],
-                "retail_price" => $request["retail-price"],
-                "wholesale_price" => $request["wholesale-price"],
-                "expiry_date" => $request["expiry-date"],
-                "balance_due" => $balance_due,
-                "change" => $change,
-                "payment_method" => $request["payment-method"],
-                "remarks" => $request["remarks"] ?: Carbon::now()
+                'product_id' => $request['product'],
+                'variation_id' => $request['prod-variation'],
+                'quantity' => $request['quantity'],
+                'total_cost' => (float) $request->get('total-cost'),
+                'amount_paid' => (float) $request->get('amount-paid'),
+                'unit_cost' => (float) $request['unit-cost'],
+                'retail_price' => (float) $request['retail-price'],
+                'wholesale_price' => (float) $request['wholesale-price'],
+                'expiry_date' => $request['expiry-date'],
+                'balance_due' => $balance_due,
+                'change' => $change,
+                'payment_method' => $request['payment-method'],
+                'remarks' => $request['remarks'] ?: Carbon::now()->toDateTimeString()
             ];
 
-            if($entry->AddNewBatch($values)){
-                \Session::flash("success", "Inventory stock has been updated for: {$product}");
+            if (Batch::addNewBatch($values)) {
+                Session::flash('success', "Inventory stock has been updated for: {$product}");
+
                 return redirect()->back();
             }
         }
 
-        abort(401, "You do not have the required authorization.");
+        abort(401, 'You do not have the required authorization.');
+
+        return redirect()->home();
     }
 
-    public function dummy(Request $request) {
-        if($request->user()->authorizeRoles(["Manager"])) {
-
-        }
-
-        abort(401, "You do not have the required authorization.");
-    }
+    //	public function dummy(Request $request) {
+//		if ($request->user()->authorizeRoles(['Manager'])) {
+//		}
+//
+//		abort(401, 'You do not have the required authorization.');
+//	}
 }

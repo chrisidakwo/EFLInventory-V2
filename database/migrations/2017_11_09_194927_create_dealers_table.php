@@ -1,21 +1,19 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateDealersTable extends Migration
-{
+class CreateDealersTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('dealers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("full_name", 50);
-            $table->string("phone", 50);
+            $table->string('full_name', 50);
+            $table->string('phone', 50);
             $table->timestamps();
         });
     }
@@ -25,8 +23,7 @@ class CreateDealersTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('dealers');
     }
 }

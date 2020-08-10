@@ -413,35 +413,38 @@ function searchBarcode() {
         data: {"barcode": barcode},
         dataType: "json",
         success: function(data) {
-            if(typeof data.product == "string") {
-                $.toast({
-                    heading: 'Error!',
-                    text: "Barcode is not associated with any product",
-                    position: 'top-right',
-                    loaderBg: '#ff6849',
-                    icon: 'info',
-                    hideAfter: 4000,
-                    stack: 6
-                });
-            }
+            // if(typeof data.product == "string") {
+            //     $.toast({
+            //         heading: 'Error!',
+            //         text: "Barcode is not associated with any product",
+            //         position: 'top-right',
+            //         loaderBg: '#ff6849',
+            //         icon: 'info',
+            //         hideAfter: 4000,
+            //         stack: 6
+            //     });
+            // }
 
             $(".product").remove();
             var variations = data.variations;
+
+            console.table(variations);
+
             var url = "{{ asset('/inventory/products/') }}" + "/";
-            $.each(variations, function(k, v) {
-                var pname = v.product_name.toString();
-                for(var i=0; i <= v.product_name.toString().length; i++) {
-                    pname = pname.replace(" ", "%20");
-                }
-                var img_url = url + pname + "/" + v.variation_img;
-                var html = "<div class=\"product\" id=\"p-" + v.batch_id + "\" data-batch-id=\"" + v.batch_id +
-                    "\" data-name=\"" + v.variation_name + "\" data-price=\"" + v.retail_price + "\"> <div class=\"product-img\"><img src=" +
-                    img_url + " class=\"img-fluid\">";
-                html += "<span class=\"price-tag\"><strong><span style=\"text-decoration: line-through\">N</span>" +
-                    "<span class=\"price\">" + v.retail_price + "</span></strong></span>";
-                html += "</div><div class=\"product-name\">" + v.variation_name + "</div></div>";
-                $(".product-list").append(html);
-            });
+            // $.each(variations, function(k, v) {
+            //     var pname = v.product_name.toString();
+            //     for(var i=0; i <= v.product_name.toString().length; i++) {
+            //         pname = pname.replace(" ", "%20");
+            //     }
+            //     var img_url = url + pname + "/" + v.variation_img;
+            //     var html = "<div class=\"product\" id=\"p-" + v.batch_id + "\" data-batch-id=\"" + v.batch_id +
+            //         "\" data-name=\"" + v.variation_name + "\" data-price=\"" + v.retail_price + "\"> <div class=\"product-img\"><img src=" +
+            //         img_url + " class=\"img-fluid\">";
+            //     html += "<span class=\"price-tag\"><strong><span style=\"text-decoration: line-through\">N</span>" +
+            //         "<span class=\"price\">" + v.retail_price + "</span></strong></span>";
+            //     html += "</div><div class=\"product-name\">" + v.variation_name + "</div></div>";
+            //     $(".product-list").append(html);
+            // });
         }
     });
 }

@@ -37,24 +37,17 @@
 					<form action="{{ route("storeProduct") }}" method="post" enctype="multipart/form-data">
 						{{ csrf_field() }}
 						<div class="form-group">
-							<div class="fileinput fileinput-new" data-provides="fileinput">
-								<div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
-								<span class="btn btn-danger btn-file m-r-10">
-									<span class="fileinput-new">Select Product Image</span>
-									<span class="fileinput-exists">Change Product Image</span>
-									<input id="txtProductImage" type="file" name="product-image">
-								</span>
-								{{--<span class="fileinput-filename"></span>--}}
-								<a href="#" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">Remove</a>
-							</div>
-
-
-							{{--<div class="fileupload btn btn-danger btn-rounded waves-effect waves-light">
-								<span>
-									<i class="mdi mdi-upload"></i> Upload Product Image
-								</span>
-								<input id="txtProductImage" name="product-image" class="upload" type="file">
-							</div>--}}
+							<input id="txtProductImage" class="form-control form-control-file" type="file" name="product-image">
+{{--							<div class="fileinput fileinput-new" data-provides="fileinput">--}}
+{{--								<div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>--}}
+{{--								<span class="btn btn-danger btn-file m-r-10">--}}
+{{--									<span class="fileinput-new">Select Product Image</span>--}}
+{{--									<span class="fileinput-exists">Change Product Image</span>--}}
+{{--									<input id="txtProductImage" type="file" name="product-image">--}}
+{{--								</span>--}}
+{{--								--}}{{--<span class="fileinput-filename"></span>--}}
+{{--								<a href="#" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">Remove</a>--}}
+{{--							</div>--}}
 						</div>
 
 						<div class="form-group">

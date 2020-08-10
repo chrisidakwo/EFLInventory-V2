@@ -2,100 +2,115 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
-use App\ErrorLog;
+use App\Models\Brand;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
+use Session;
 
-class BrandController extends Controller
-{
+class BrandController extends Controller {
+    /**
+     * BrandController constructor.
+     */
     public function __construct() {
-        $this->middleware("auth");
+        $this->middleware('auth');
     }
 
+    /**
+     * @param Request $request
+     * @return Application|Factory|RedirectResponse|Redirector|View
+     */
     public function show(Request $request) {
-        try {
-            if ($request->user()->authorizeRoles(["Manager"])) {
-                $brands = Brand::all()->sortBy("name");
-                return view("products.brands", compact("brands"));
-            }
+        if ($request->user()->authorizeRoles(['Manager'])) {
+            $brands = Brand::all()->sortBy('name');
 
-            abort(401, "You do not have the required authorization.");
-        } catch (\Exception $ex) {
-            $inner_exception = $ex;
-            $stack_trace = $ex->getTraceAsString();
-            $error_message = $ex->getMessage();
-            ErrorLog::AddNewError($inner_exception, $error_message, $stack_trace);
-            return redirect("/login");
+            return view('products.brands', compact('brands'));
         }
+
+        abort(401, 'You do not have the required authorization.');
+
+        return redirect('/login');
     }
 
-    public function store(Request $request) {
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function store(Request $request): RedirectResponse {
         $this->validate($request, [
-            "name" => "required|unique:brands|max:50",
+            'name' => 'required|unique:brands|max:50',
         ]);
 
-        $values = array(
-            "name" => $request["name"],
-            "contact" => $request["contact"],
-            "address" => $request["address"]
-        );
+        $values = [
+            'name' => $request['name'],
+            'contact' => $request['contact'],
+            'address' => $request['address']
+        ];
 
-        $brand = new Brand();
-        if($brand->AddNewBrand($values)) {
-            \Session::flash("success", "Brand has been saved successfully");
-            return redirect()->route("showBrands");
+        if (Brand::addNewBrand($values)) {
+            Session::flash('success', 'Brand has been saved successfully');
+
+            return redirect()->route('showBrands');
         }
+
+        session()->flash('error', 'Could not add brand!');
+
+        return redirect()->back();
     }
 
+    /**
+     * @param Request $request
+     * @param $slug
+     * @return Application|RedirectResponse|Redirector
+     */
     public function edit(Request $request, $slug) {
-        try {
-            if ($request->user()->authorizeRoles(["Manager"])) {
-                $values = array(
-                    "name" => $request["name"],
-                    "contact" => $request["contact"],
-                    "address" => $request["address"],
-                    "slug" => $slug
-                );
+        if ($request->user()->authorizeRoles(['Manager'])) {
+            $values = [
+                'name' => $request['name'],
+                'contact' => $request['contact'],
+                'address' => $request['address'],
+                'slug' => $slug
+            ];
 
-                $brand = new Brand();
-                if ($brand->UpdateBrand($values)) {
-                    \Session::flash("success", "Brand has been updated successfully");
-                    return redirect()->route("showBrands");
-                }
+            if (Brand::updateBrand($values)) {
+                Session::flash('success', 'Brand has been updated successfully');
+
+                return redirect()->route('showBrands');
             }
-
-            abort(401, "You do not have the required authorization");
-        } catch (\Exception $ex) {
-            $inner_exception = $ex;
-            $stack_trace = $ex->getTraceAsString();
-            $error_message = $ex->getMessage();
-            ErrorLog::AddNewError($inner_exception, $error_message, $stack_trace);
-            return redirect("/login");
         }
+
+        return redirect('/login');
     }
 
+    /**
+     * @param Request $request
+     * @param $slug
+     * @return Application|RedirectResponse|Redirector
+     * @throws Exception
+     */
     public function delete(Request $request, $slug) {
-        try {
-            if ($request->user()->authorizeRoles(["Manager"])) {
-                $name = $request["name"];
-                $brand = new Brand();
-                if ($brand->DeleteBrand($slug)) {
-                    \Session::flash("success", Str::title($name) . " has been deleted successfully");
-                    return redirect()->route("showBrands");
-                } else {
-                    \Session::flash("error", Str::title($name) . " cannot be deleted because it is associated with products!");
-                    return back();
-                }
+        if ($request->user()->authorizeRoles(['Manager'])) {
+            $name = $request['name'];
+            if (Brand::deleteBrand($slug)) {
+                Session::flash('success', Str::title($name) . ' has been deleted successfully');
+
+                return redirect()->route('showBrands');
             }
-        } catch (\Exception $ex) {
-            $inner_exception = $ex;
-            $stack_trace = $ex->getTraceAsString();
-            $error_message = $ex->getMessage();
-            ErrorLog::AddNewError($inner_exception, $error_message, $stack_trace);
-            return redirect("/login");
+
+            session()->flash('error', Str::title($name) . ' cannot be deleted because it is associated with products!');
+
+            return back();
         }
 
-        abort(401, "You do not have the required authorization!");
+        abort(401, 'You do not have the required authorization!');
+
+        return redirect('/login');
     }
 }

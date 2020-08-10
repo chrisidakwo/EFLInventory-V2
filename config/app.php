@@ -168,6 +168,11 @@ return [
          * Package Service Providers...
          */
 
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class,
+        App\Providers\GoogleDriveServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -176,10 +181,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        Darryldecode\Cart\CartServiceProvider::class,
-        App\Providers\GoogleDriveServiceProvider::class
     ],
 
     /*

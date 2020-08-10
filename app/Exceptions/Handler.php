@@ -4,10 +4,11 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Throwable;
 
-class Handler extends ExceptionHandler
-{
+class Handler extends ExceptionHandler {
     /**
      * A list of the exception types that are not reported.
      *
@@ -32,35 +33,40 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param Exception $exception
      * @return void
+     * @throws Exception
      */
-    public function report(Exception $exception)
-    {
+    public function report(Exception $exception) {
         parent::report($exception);
+
+        //	    if (auth()->id()) {
+//		    $stack_trace = $exception->getTraceAsString();
+//		    $error_message = $exception->getMessage();
+//		    ErrorLog::AddNewError($exception, $error_message, $stack_trace);
+//	    }
     }
 
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Exception|Throwable|HttpExceptionInterface $exception
+     * @throws Exception
      */
-    public function render($request, Exception $exception)
-    {
-        if($this->isHttpException($exception)) {
+    public function render($request, $exception) {
+        if ($this->isHttpException($exception)) {
             return $this->renderHttpException($exception);
-        } else {
-            return parent::render($request, $exception);
         }
+
+        return parent::render($request, $exception);
     }
 
-    protected function renderHttpException(HttpException $e) {
-        if(view()->exists("errors." . $e->getStatusCode())) {
-            return response()->view("errors." . $e->getStatusCode(), [], $e->getStatusCode());
-        } else {
-            return response()->view("errors.404", [], $e->getStatusCode());
+    protected function renderHttpException(HttpExceptionInterface $e) {
+        if (view()->exists('errors.' . $e->getStatusCode())) {
+            return response()->view('errors.' . $e->getStatusCode(), [], $e->getStatusCode());
         }
+
+        return response()->view('errors.404', [], $e->getStatusCode());
     }
 }

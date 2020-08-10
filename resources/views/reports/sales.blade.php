@@ -30,19 +30,19 @@ $page_title = "All Sales Transactions";
                                     <th>Sales Date</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Products</th>
-                                    <th>Total Amount</th>
-                                    <th>Amount Tendered</th>
-                                    <th>Payment Method</th>
-                                    <th>Balance Due</th>
-                                    <th>Change</th>
-                                    <th>Seller</th>
-                                    <th>Receipt No</th>
-                                    <th>Sales Date</th>
-                                </tr>
-                            </tfoot>
+{{--                            <tfoot>--}}
+{{--                                <tr>--}}
+{{--                                    <th>Products</th>--}}
+{{--                                    <th>Total Amount</th>--}}
+{{--                                    <th>Amount Tendered</th>--}}
+{{--                                    <th>Payment Method</th>--}}
+{{--                                    <th>Balance Due</th>--}}
+{{--                                    <th>Change</th>--}}
+{{--                                    <th>Seller</th>--}}
+{{--                                    <th>Receipt No</th>--}}
+{{--                                    <th>Sales Date</th>--}}
+{{--                                </tr>--}}
+{{--                            </tfoot>--}}
                             <tbody>
                             @foreach($transactions as $transaction)
                                 <tr>

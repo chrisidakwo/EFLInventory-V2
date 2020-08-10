@@ -24,10 +24,13 @@
 namespace App\Helpers;
 
 use Cache;
+use expectedClass;
 use Google_Client;
+use Google_Http_Request;
 use Google_Service_Drive;
 use Google_Service_Drive_DriveFile;
 use Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use Storage;
 
@@ -35,14 +38,14 @@ class GoogleUploadHelper {
     protected $client;
     protected $folder_id;
     protected $service;
-    protected $ClientId = "xxx";
-    protected $ClientSecret = "xxx";
-    protected $refreshToken = "xxx";
+    protected $ClientId = 'xxx';
+    protected $ClientSecret = 'xxx';
+    protected $refreshToken = 'xxx';
 
     public function __construct() {
-        $this->ClientId = env("GOOGLE_DRIVE_CLIENT_ID");
-        $this->ClientSecret = env("GOOGLE_DRIVE_CLIENT_SECRET");
-        $this->refreshToken = env("GOOGLE_DRIVE_REFRESH_TOKEN");
+        $this->ClientId = env('GOOGLE_DRIVE_CLIENT_ID');
+        $this->ClientSecret = env('GOOGLE_DRIVE_CLIENT_SECRET');
+        $this->refreshToken = env('GOOGLE_DRIVE_REFRESH_TOKEN');
 
         $this->client = new Google_Client();
         $this->client->setClientId($this->ClientId);
@@ -59,17 +62,16 @@ class GoogleUploadHelper {
             return $this->create_folder();
         });
 
-        $this->folder_id = Cache::get("folder_id");
+        $this->folder_id = Cache::get('folder_id');
     }
 
-
     protected function create_folder() {
-        $fileMetadata = new \Google_Service_Drive_DriveFile([
-            "name" => str_replace(" ", "-", env("APP_NAME") . "-V2"),
-            "mimeType" => "application/vnd.google-apps.folder"
+        $fileMetadata = new Google_Service_Drive_DriveFile([
+            'name' => str_replace(' ', '-', env('APP_NAME') . '-V2'),
+            'mimeType' => 'application/vnd.google-apps.folder'
         ]);
 
-        $folder = $this->service->files->create($fileMetadata, ["fields" => "id"]);
+        $folder = $this->service->files->create($fileMetadata, ['fields' => 'id']);
 
         return $folder->id;
     }
@@ -78,8 +80,9 @@ class GoogleUploadHelper {
      * @param $fileId
      * @return Google_Service_Drive_DriveFile
      */
-    public function get_file($fileId) {
-        $response = $this->service->files->get($fileId, ["alt"=>"media"]);
+    public function get_file($fileId): Google_Service_Drive_DriveFile {
+        $response = $this->service->files->get($fileId, ['alt' => 'media']);
+
         return $response;
     }
 
@@ -95,7 +98,7 @@ class GoogleUploadHelper {
      * https://developers.google.com/drive/v2/reference/
      * https://developers.google.com/drive/v3/web/search-parameters
      * @param $file
-     * @return \expectedClass|\Google_Http_Request
+     * @return expectedClass|Google_Http_Request
      */
     protected function remove_duplicated($file) {
         $response = $this->service->files->listFiles([
@@ -109,11 +112,11 @@ class GoogleUploadHelper {
     /**
      * upload files to GDrive.
      *
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function upload_files() {
-        Storage::cloud()->put("", "");
-        $adapter    = new GoogleDriveAdapter($this->service, Cache::get('folder_id'));
+        Storage::cloud()->put('', '');
+        $adapter = new GoogleDriveAdapter($this->service, Cache::get('folder_id'));
         $filesystem = new Filesystem($adapter);
         // here we are uploading files from local storage
         // we first get all the files
@@ -139,35 +142,35 @@ class GoogleUploadHelper {
      * @param $folder_id
      * @return mixed
      */
-    public function upload_file($filename, $drive_name, $mime_type="", $folder_id) {
+    public function upload_file($filename, $drive_name, $mime_type = '', $folder_id) {
         $folderId = $folder_id;
-        $fileMetadata = new Google_Service_Drive_DriveFile(array(
+        $fileMetadata = new Google_Service_Drive_DriveFile([
             'name' => $drive_name,
-            'parents' => array($folderId)
-        ));
+            'parents' => [$folderId]
+        ]);
         $content = file_get_contents($filename);
-        $file = $this->service->files->create($fileMetadata, array(
+        $file = $this->service->files->create($fileMetadata, [
             'data' => $content,
-            'mimeType' => ($mime_type != "") ? $mime_type : $fileMetadata->getMimeType(),
+            'mimeType' => ($mime_type !== '') ? $mime_type : $fileMetadata->getMimeType(),
             'uploadType' => 'multipart',
-            'fields' => 'id'));
+            'fields' => 'id']);
         // printf("File ID: %s\n", $file->id);
 
         return $file->id;
     }
 
-
     /**
-     ** get the total file count inside a specific folder
+     ** get the total file count inside a specific folder.
      *
      * @param null $folder_id
      * @return int
      */
-    public function files_count($folder_id = null) {
+    public function files_count($folder_id = null): int {
         $id = $this->folder_id ?: $folder_id;
         $response = $this->service->files->listFiles([
             'q' => "'$id' in parents and trashed=false",
         ]);
+
         return count($response->getFiles());
     }
 }

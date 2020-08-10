@@ -41,7 +41,7 @@ $page_title = $title;
 
         <div class="row">
             <div class="col-lg-4">
-                <div class="card animated zoomIn">
+                <div class="card">
                     <div class="card-header bg-info text-white">
                         Create New SubCategory
                     </div>
