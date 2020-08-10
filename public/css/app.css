@@ -8,11 +8,12 @@ table {
 }
 
 table th {
-    font-size: 16px;
+    font-size: 13px;
 }
 
 table tbody tr td {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: normal;
 }
 
 table td.header-cell {

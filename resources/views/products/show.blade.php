@@ -39,7 +39,7 @@
 				</div>
 				<div class="card animated zoomIn">
 					<div class="card-body">
-						<h4 class="card-title">ALL PRODUCTS</h4>
+						<h4 class="card-title">AVAILABLE PRODUCT STOCKS</h4>
 						<h6 class="card-subtitle">List of all saleable products</h6>
 						<div class="table-responsive m-t-30">
 							<table id="tblAllProducts" class="display nowrap table table-hover table-bordered" cellspacing="0" width="100%">

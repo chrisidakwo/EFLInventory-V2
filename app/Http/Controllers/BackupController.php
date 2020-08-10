@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\BackupConfig;
-use App\Helpers\GoogleUploadHelper;
-use function GuzzleHttp\Psr7\str;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Http\Request;
 
 class BackupController extends Controller {
-
     /*public function __construct() {
         $this->middleware("auth");
     }

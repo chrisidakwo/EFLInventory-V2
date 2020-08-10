@@ -8,7 +8,7 @@
 
             <div class="mb-4 animated bounceIn" style="width: 150px; margin: 0 auto;">
                 <div class="" style="width: 100%;">
-                    <img src="{{ asset("img/brand/logo.png") }}" class="img-fluid justify-content-center">
+                    <img src="{{ asset("img/brand/Logo.png") }}" class="img-fluid justify-content-center">
                 </div>
             </div>
 

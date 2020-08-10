@@ -33,3 +33,4 @@ yarn-error.log
 _ide_helper.php
 meta.phpstorm.php
 Procfile
+.php_cs.cache

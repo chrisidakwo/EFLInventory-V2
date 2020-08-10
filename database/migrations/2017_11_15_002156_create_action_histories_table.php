@@ -1,21 +1,19 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateActionHistoriesTable extends Migration
-{
+class CreateActionHistoriesTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('action_histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("user_id")->unsigned();
-            $table->string("description", 1000);
+            $table->integer('user_id')->unsigned();
+            $table->string('description', 1000);
             $table->timestamps();
         });
     }
@@ -25,8 +23,7 @@ class CreateActionHistoriesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('action_histories');
     }
 }

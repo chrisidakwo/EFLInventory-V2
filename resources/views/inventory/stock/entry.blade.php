@@ -8,7 +8,6 @@ $page_title = "Stock Entry";
 @push("extra-css")
     <link href="{{ asset("css/bootstrap-select.min.css") }}" rel="stylesheet">
     <link href="{{ asset("css/select2.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("css/steps.css") }}" rel="stylesheet">
     <link href="{{ asset("css/bootstrap-material-datetimepicker.css") }}" rel="stylesheet">
 @endpush
 

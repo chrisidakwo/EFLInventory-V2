@@ -1,23 +1,21 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateBrandsTable extends Migration
-{
+class CreateBrandsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('brands', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("name", 50);
+            $table->string('name', 50);
             $table->string('slug', 60);
-            $table->string("contact_info", 500)->nullable();
-            $table->text("address")->nullable();
+            $table->string('contact_info', 500)->nullable();
+            $table->text('address')->nullable();
             $table->timestamps();
         });
     }
@@ -27,8 +25,7 @@ class CreateBrandsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('brands');
     }
 }

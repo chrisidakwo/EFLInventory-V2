@@ -1,11 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Exception;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
+use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 
-class POSProduct extends Collection {
+class POSProduct extends Collection implements JsonSerializable, Jsonable {
     public $key;
     public $product_name;
     public $product_id;
@@ -30,25 +33,43 @@ class POSProduct extends Collection {
     public $size;
     public $expiry_date;
 
+    /**
+     * POSProduct constructor.
+     * @throws Exception
+     */
     public function __construct() {
-        $this->key = Uuid::uuid4();
         parent::__construct();
+
+        $this->key = Uuid::uuid4()->toString();
     }
 
-    public function all() {
+    public function all(): array {
         $this->addAll();
+
         return $this->items;
+    }
+
+    /**
+     * Convert the object to its JSON representation.
+     *
+     * @param  int  $options
+     * @return string
+     */
+    public function toJson($options = 0): string {
+        $this->addAll();
+
+        return json_encode($this->items, JSON_PRETTY_PRINT, 512);
     }
 
     protected function addAll() {
         $variations = ProductVariation::all();
         $batches = Batch::all();
 
-        foreach($variations as $variation) {
+        foreach ($variations as $variation) {
             $pos_product = new POSProduct();
 
-            foreach($batches as $batch) {
-                if($batch->variation_id == $variation->id && $batch->on_sale == 1) {
+            foreach ($batches as $batch) {
+                if ($batch->variation_id === $variation->id && $batch->on_sale === 1) {
                     $pos_product->retail_price = $batch->retail_price;
                     $pos_product->wholesale_price = $batch->wholesale_price;
                     $pos_product->expiry_date = $batch->expiry_date;
@@ -64,7 +85,7 @@ class POSProduct extends Collection {
                     $pos_product->category = $variation->product->subcategory->category->name;
                     $pos_product->sub_category = $variation->product->subcategory->name;
                     $pos_product->upc_code = $variation->product->upc_code;
-                    $pos_product->brand = $variation->product->brand;
+                    $pos_product->brand = $variation->product->brand->toArray();
                     $pos_product->sku = $variation->sku;
                     $pos_product->variate_by = $variation->product->variate_by;
                     $pos_product->weight = $variation->weight . $variation->weight_unit ;
@@ -82,9 +103,9 @@ class POSProduct extends Collection {
      * @param $variation_id
      * @return POSProduct
      */
-    public function findByVariation($variation_id) {
+    public function findByVariation($variation_id): POSProduct {
         $variation = ProductVariation::find($variation_id);
-        $batch = Batch::all()->where("variation_id", "=", $variation_id)->where("on_sale", 1)->first();
+        $batch = Batch::query()->where('variation_id', '=', $variation_id)->where('on_sale', 1)->first();
 
         $pos_product = new POSProduct();
         $pos_product->product_name = $variation->product->name;
@@ -112,17 +133,15 @@ class POSProduct extends Collection {
         $pos_product->expiry_date = $batch->expiry_date;
 
         return $pos_product;
-
     }
-
 
     /**
      * @param $batch_id
      * @param int $on_sale
      * @return POSProduct
      */
-    public function findByBatch($batch_id, $on_sale = 1) {
-        $batch = Batch::find($batch_id)->where("on_sale", $on_sale)->first();
+    public function findByBatch($batch_id, $on_sale = 1): POSProduct {
+        $batch = Batch::query()->whereId($batch_id)->where('on_sale', $on_sale)->first();
         $variation = ProductVariation::find($batch->variation_id);
 
         $pos_product = new POSProduct();
@@ -157,35 +176,35 @@ class POSProduct extends Collection {
      * @param $product_id
      * @return array
      */
-    public function findByProduct($product_id) {
-        $variations = ProductVariation::all()->where("product_id", $product_id)->all();
-        $pos_products = array();
+    public function findByProduct($product_id): array {
+        $variations = ProductVariation::where('product_id', $product_id)->get();
+        $pos_products = [];
 
         foreach ($variations as $variation) {
-            $batch = Batch::all()->where("variation_id", "=", $variation->id)->where("on_sale", 1)->first();
+            $batch = Batch::query()->where('variation_id', '=', $variation->id)->where('on_sale', 1)->first();
             $pos_products[] = [
-                "product_name" => strval($variation->product->name),
-                "product_id" => $variation->product_id,
-                "product_slug" => $variation->product->slug,
-                "variation_id" => $variation->id,
-                "batch_id" => $batch->id,
-                "variation_name" => $variation->variation_name,
-                "variation_img" => $variation->image_path,
-                "variation_img_thumb" => $variation->thumb_image_path,
-                "category" => $variation->product->subcategory->category->name,
-                "sub_category" => $variation->product->subcategory->name,
-                "upc-code" => $variation->product->upc_code,
-                "brand" => $variation->product->brand,
-                "sku" => $variation->sku,
-                "variate_by" => $variation->product->variate_by,
-                "weight" => $variation->weight . $variation->weight_unit,
-                "weight_unit" => $variation->weight_unit,
-                "size" => $variation->size,
-                "color" => $variation->color,
-                "available_stock" => $variation->stock,
-                "retail_price" => $batch->retail_price,
-                "wholesale_price" => $batch->wholesale_price,
-                "expiry_date" => $batch->expiry_date
+                'product_name' => (string) $variation->product->name,
+                'product_id' => $variation->product_id,
+                'product_slug' => $variation->product->slug,
+                'variation_id' => $variation->id,
+                'batch_id' => $batch->id,
+                'variation_name' => $variation->variation_name,
+                'variation_img' => $variation->image_path,
+                'variation_img_thumb' => $variation->thumb_image_path,
+                'category' => $variation->product->subcategory->category->name,
+                'sub_category' => $variation->product->subcategory->name,
+                'upc-code' => $variation->product->upc_code,
+                'brand' => $variation->product->brand,
+                'sku' => $variation->sku,
+                'variate_by' => $variation->product->variate_by,
+                'weight' => $variation->weight . $variation->weight_unit,
+                'weight_unit' => $variation->weight_unit,
+                'size' => $variation->size,
+                'color' => $variation->color,
+                'available_stock' => $variation->stock,
+                'retail_price' => $batch->retail_price,
+                'wholesale_price' => $batch->wholesale_price,
+                'expiry_date' => $batch->expiry_date
             ];
         }
 

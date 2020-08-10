@@ -2,9 +2,8 @@
     <head>
         <meta charset="utf-8">
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/colors/blue.css') }}" id="theme" rel="stylesheet">
+        <link href="{{ asset('css/theme/colors/blue.css') }}" id="theme" rel="stylesheet">
         <title>Purchase Receipt</title>
     </head>
 
@@ -15,8 +14,8 @@
         </address>
         <hr>
         <p>
-            <label>Date:&nbsp;</label><span><?php echo \Carbon\Carbon::now("Africa/Lagos")->toDayDateTimeString(); ?></span>
-            <label>Transaction #:&nbsp;</label><?php echo \Ramsey\Uuid\Uuid::uuid4()->toString(); ?>
+            <label>Date:&nbsp;</label><span><?php use Carbon\Carbon;use Ramsey\Uuid\Uuid;echo Carbon::now("Africa/Lagos")->toDayDateTimeString(); ?></span>
+            <label>Transaction #:&nbsp;</label><?php echo Uuid::uuid4()->toString(); ?>
         </p>
         <hr>
         <div>

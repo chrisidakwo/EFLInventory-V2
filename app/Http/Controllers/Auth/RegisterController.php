@@ -3,14 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Role;
-use App\User;
+use App\Models\Role;
+use App\Models\User;
+use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
-class RegisterController extends Controller
-{
+class RegisterController extends Controller {
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -33,59 +39,59 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      */
     public function __construct() {
         $this->middleware('auth');
     }
 
     /**
-     * Show the application registration form.
-     *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|RedirectResponse|Redirector|View
      */
     public function showRegistrationForm(Request $request) {
         try {
-            if ($request->user()->authorizeRoles(["Manager"])) {
+            if ($request->user()->authorizeRoles(['Manager'])) {
                 return view('auth.register');
             }
-        } catch (\Exception $ex) {
-            return redirect("/login");
+        } catch (Exception $ex) {
+            return redirect('/login');
         }
 
-        abort(401, "This action is unauthorized.");
+        abort(401, 'This action is unauthorized.');
+
+        return redirect()->home();
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param array $data
+     * @return Validator
+     * @throws BindingResolutionException
      */
-    protected function validator(array $data) {
-        return Validator::make($data, [
+    protected function validator(array $data): Validator {
+        return validator()->make($data, [
             'name' => 'required|string|max:255',
             'username' => 'required|string|username|max:12|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ], ["username"=>"Username already exists! Please try another!"]);
+        ], ['username' => 'Username already exists! Please try another!']);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param array $data
+     * @return User
      */
-    protected function create(array $data) {
-        $user =  User::create([
+    protected function create(array $data): User {
+        $user = User::create([
             'name' => $data['name'],
             'username' => $data['username'],
             'password' => bcrypt($data['password']),
-            'last_login' => ""
+            'last_login' => ''
         ]);
 
-        $user->roles()->attach(Role::where("name", "Employee")->first());
+        $user->roles()->attach(Role::where('name', 'Employee')->first());
 
         return $user;
     }

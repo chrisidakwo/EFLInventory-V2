@@ -61,17 +61,17 @@ $page_title = $title;
 
 
                     <div id="divProductDetails" class="product-detail animated fadeIn">
-                        <div>
+                        <div class="mb-3">
                             <h5 class="mb-0">Product Name:</h5>
                             <p class="mb-0">{{ $product->name }}</p>
                         </div>
 
-                        <div>
+                        <div class="mb-3">
                             <h5 class="mb-0">Category:</h5>
                             <p class="mb-0">{{ $product->subcategory->category->name }}</p>
                         </div>
 
-                        <div>
+                        <div class="mb-3">
                             <h5 class="mb-0">SubCategory:</h5>
                             <p class="mb-0">{{ $product->subcategory->name }}</p>
                         </div>
@@ -362,15 +362,17 @@ $page_title = $title;
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
-                                                    <span class="btn btn-danger btn-file waves-effect waves-light m-r-10">
-                                                        <span class="fileinput-new">Select Product Image</span>
-                                                        <span class="fileinput-exists">Change Product Image</span>
-                                                        <input id="imgVariationImage" type="file" name="variation-image">
-                                                    </span>
-                                                <a href="#" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                            </div>
+                                            <label for="Select Product Image"></label>
+                                            <input type="file" class="form-control-file" name="variation-image" id="imgVariationImage" required></input>
+{{--                                            <div class="fileinput fileinput-new" data-provides="fileinput">--}}
+{{--                                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>--}}
+{{--                                                    <span class="btn btn-danger btn-file waves-effect waves-light m-r-10">--}}
+{{--                                                        <span class="fileinput-new">Select Product Image</span>--}}
+{{--                                                        <span class="fileinput-exists">Change Product Image</span>--}}
+{{--                                                        <input id="imgVariationImage" type="file" name="variation-image">--}}
+{{--                                                    </span>--}}
+{{--                                                <a href="#" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">Remove</a>--}}
+{{--                                            </div>--}}
                                         </div>
 
                                         <div class="form-group">
@@ -380,7 +382,7 @@ $page_title = $title;
 
                                         <div class="form-group">
                                             <label for="txtProductSKU">SKU</label>
-                                            <input id="txtProductSKU" name="product-sku" class="form-control" type="text" >
+                                            <input id="txtProductSKU" name="product-sku" class="form-control" type="text" maxlength="20">
                                             <small class="help-block">Pattern: CATEGORYSUBCATEGORY-PRODUCTNAME-VARIATION-NUMBER</small>
                                         </div>
                                     </div>

@@ -12,18 +12,17 @@
 
 namespace App\Helpers;
 
-
-use App\Batch;
-use App\POSProduct;
-use App\ProductVariation;
+use App\Models\Batch;
+use App\Models\POSProduct;
+use App\Models\ProductVariation;
 use Carbon\Carbon;
+use DateTime;
 
 class InventoryHelper {
-
     // TODO: Refactor methods. Reduce code reuse.
 
     /**
-     ** total value of inventory
+     ** total value of inventory.
      *
      * @return float|int
      */
@@ -32,44 +31,44 @@ class InventoryHelper {
     }
 
     /**
-     ** total number of products in stock
+     ** total number of products in stock.
      *
      * @return int|mixed
      */
     public static function totalItems() {
-        return ProductVariation::all()->sum("stock");
+        return ProductVariation::query()->sum('stock');
     }
 
     /**
-     ** get a list of products below their stock threshold
+     ** get a list of products below their stock threshold.
      *
      * @return array
      */
-    public static function lowStockProducts() {
+    public static function lowStockProducts(): array {
         $products = ProductVariation::all();
-        $low_stock = [];
 
+        $lowStocks = [];
         foreach ($products as $product) {
-            if($product->stock <= $product->stock_threshold) {
-                $low_stock[] = $product;
+            if ($product->stock <= $product->stock_threshold) {
+                $lowStocks[] = $product;
             }
         }
 
-        return $low_stock;
+        return $lowStocks;
     }
 
     /**
-     ** get a list of all expired products
+     ** get a list of all expired products.
      *
      * @return array
      */
-    public static function expiredProducts() {
+    public static function expiredProducts(): array {
         $products = [];
-        $batches = Batch::all()->where("on_sale", 1);
-        $today = today("Africa/Lagos")->toDateString();
+        $batches = Batch::query()->where('on_sale', 1)->get();
+        $today = today(config('app.timezone'))->toDateString();
 
         foreach ($batches as $batch) {
-            if(Carbon::parse($batch->expiry_date)->toDateString() <= $today) {
+            if (Carbon::parse($batch->expiry_date)->toDateString() <= $today) {
                 $products[] = $batch;
             }
         }
@@ -77,13 +76,12 @@ class InventoryHelper {
         return $products;
     }
 
-
     #region Private functions
-    private static function _getTotal(\DateTime $date=null) {
+    private static function _getTotal(DateTime $date = null) {
         $products = $products = (new POSProduct())->all();
         $total = 0.00;
 
-        if($date) {
+        if ($date) {
             // to get value of inventory in the past
             // not sure if needed, and if yes... how to go about it.
             // might be a bit complicated
@@ -150,6 +148,6 @@ class InventoryHelper {
 
         return $total;
     }
-    #endregion
 
+    #endregion
 }

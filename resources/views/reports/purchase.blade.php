@@ -24,23 +24,22 @@ $page_title = "All Purchase Transactions";
                                     <th>Quantity Purchased</th>
                                     <th>Total Cost</th>
                                     <th>Amount Paid</th>
-                                    <th>Balance</th>
-                                    <th>Change</th>
+                                    <th>Balance Due</th>
                                     <th>Purchase Date</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                            <tr>
-                                <th>Product</th>
-                                <th>Batch ID</th>
-                                <th>Quantity Purchased</th>
-                                <th>Total Cost</th>
-                                <th>Amount Paid</th>
-                                <th>Balance</th>
-                                <th>Change</th>
-                                <th>Purchase Date</th>
-                            </tr>
-                            </tfoot>
+{{--                            <tfoot>--}}
+{{--                            <tr>--}}
+{{--                                <th>Product</th>--}}
+{{--                                <th>Batch ID</th>--}}
+{{--                                <th>Quantity Purchased</th>--}}
+{{--                                <th>Total Cost</th>--}}
+{{--                                <th>Amount Paid</th>--}}
+{{--                                <th>Balance</th>--}}
+{{--                                <th>Change</th>--}}
+{{--                                <th>Purchase Date</th>--}}
+{{--                            </tr>--}}
+{{--                            </tfoot>--}}
                             <tbody>
                                 @foreach($transactions as $transaction)
                                     <tr>
@@ -53,18 +52,11 @@ $page_title = "All Purchase Transactions";
                                             @if($transaction->batch_id == $batch->id)
                                                 <td>{{ $transaction->batch_id }}</td>
                                                 <td>{{ $batch->ordered_quantity }}</td>
-                                                <td>{{ $batch->total_cost }}</td>
-                                                @if($transaction->balance_due > 0)
-                                                    <td>{{ $batch->total_cost - $transaction->balance_due }}</td>
-                                                @elseif($transaction->change > 0)
-                                                    <td>{{ $batch->total_cost + $transaction->change }}</td>
-                                                @elseif($transaction->change == 0 && $transaction->balance == 0)
-                                                    <td>{{ $batch->total_cost }}</td>
-                                                @endif
+                                                <td>{{ number_format($transaction->total_amount, 2) }}</td>
+                                                <td>{{ number_format($transaction->amount_paid, 2) }}</td>
                                             @endif
                                         @endforeach
                                         <td>{{$transaction->balance_due}}</td>
-                                        <td>{{$transaction->change}}</td>
                                         <td>{{ \Carbon\Carbon::parse($transaction->created_at)->toFormattedDateString() }}</td>
                                     </tr>
                                 @endforeach
