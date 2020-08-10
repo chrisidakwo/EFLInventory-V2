@@ -1,4 +1,4 @@
-**Considering the project is getting some few interest, I'll work on improving it.**
+**A new version of this application is in progress using Laravel and Vue. Optimized for use with Electron.** 
 
 # About EFLInventory-V2
 EFLInventory V2 is a simple-to-use, web-based inventory and point-of-sale application written in PHP using Laravel framework. It uses MySQL as the data backend and has a Bootstrap 4 material-like user interface. It is designed to assist small-scale retail stores with keeping track of items and inventory, and generate reports based on inventory, purchases and sales.
@@ -71,12 +71,7 @@ Manager login details:
 - Unhandled exceptions for migration using Excel spreadsheets.
 
 ## TODO
-- Code refactoring, tests, and bug fixing.
-- Enhance sales receipt customisation. Businesses should be able to add logo, specify how the date and timestamp should appear, choose font, decide to display sales clerk's name, e.t.c.
-- An option for frequent database backup (most likely as a cron job).
-- Restructure app to allow for custom RBAC.
-- Card online payment (Paystack, Stripe and/or any other).
-- Provide better report generation options (with charts and graphs)
+- Frequent database backup to Google Drive or Dropbox
 
 ## License
 EFLInventory-V2 is an open-source software licensed under the [GPU v3 License](https://www.google.com.ng/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwin57Oi5szYAhULBcAKHS0RAQ8QFggnMAA&url=https%3A%2F%2Fwww.gnu.org%2Flicenses%2Fgpl-3.0.en.html).
