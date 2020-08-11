@@ -6,8 +6,9 @@
     "type": "product",
     "require": {
         "php": ">=7.0.0",
-        "ext-json": "*",
         "ext-intl": "*",
+        "ext-json": "*",
+        "arcanedev/log-viewer": "^5.0",
         "darryldecode/cart": "^4.0",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
