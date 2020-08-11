@@ -29,12 +29,13 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Ramsey\Uuid\Uuid;
 
 class ExcelMigrationHelper {
-    /**
-     * @param $table
-     * @param $filename
-     * @return array
-     * @throws Exception
-     */
+	/**
+	 * @param $table
+	 * @param $filename
+	 * @return array
+	 * @throws Exception
+	 * @throws \Exception
+	 */
     public static function migrate($table, $filename): array {
         $result = [];
 
@@ -101,15 +102,19 @@ class ExcelMigrationHelper {
                 case 'sub_categories':
                     $category = $row->getWorksheet()->getCell("B{$count}")->getValue();
 
-                    SubCategory::create([
-                        'name' => $name,
-                        'slug' => $slug,
-                        'category_id' => Category::where('name', $category)->first()->id
-                    ]);
+                    $category = Category::where('name', $category)->first();
 
-                    // Record action history
-                    $description = 'Added new sub-category from Excel document migration';
-                    ActionHistory::AddNewActionHistory($description);
+                    if ($category->exists()) {
+	                    SubCategory::create([
+		                    'name' => $name,
+		                    'slug' => $slug,
+		                    'category_id' => $category->id
+	                    ]);
+
+	                    // Record action history
+	                    $description = 'Added new sub-category from Excel document migration';
+	                    ActionHistory::AddNewActionHistory($description);
+                    }
                     break;
 
                 case 'dealers':
@@ -157,7 +162,7 @@ class ExcelMigrationHelper {
                             }
 
                             if (!File::exists($saveDirectory)) {
-                                $result['error'] = 'Directory could not be created.';
+                                $result['error'] = 'Product: Directory could not be created.';
 
                                 return $result;
                             }
@@ -165,7 +170,7 @@ class ExcelMigrationHelper {
                             $image->save(($saveDirectory . '\\' . $image_name));
                             $thumb_image->save(($saveDirectory . '\\' . $thumb_image_name));
                         } catch (NotWritableException $e) {
-                            $result['error'] = $e->getMessage() . $e->getTraceAsString();
+                            $result['error'] = 'Product: ' . $e->getMessage() . $e->getTraceAsString();
 
                             return $result;
                         }
@@ -199,7 +204,7 @@ class ExcelMigrationHelper {
                     // Check to ensure there is an image path
                     $image_path = $row->getWorksheet()->getCell("B{$count}")->getValue();
                     if ($image_path === '' || $image_path === null) {
-                        $result['error'] = 'All product variations must have an image path!';
+                        $result['error'] = 'Product Variation: All product variations must have an image path!';
 
                         return $result;
                     }
@@ -217,13 +222,13 @@ class ExcelMigrationHelper {
                     // Ensure product name is valid
                     $product_name = $row->getWorksheet()->getCell("C{$count}")->getValue();
                     if (!$product_name) {
-                        $result['error'] = 'All product variations must have a product name';
+                        $result['error'] = 'Product Variation: All product variations must have a product name';
 
                         return $result;
                     }
                     $product = Product::where('name', $product_name);
                     if (!$product) {
-                        $result['error'] = "{$product_name} does not match any product";
+                        $result['error'] = "Product Variation: {$product_name} does not match any product";
 
                         return $result;
                     }
@@ -239,7 +244,7 @@ class ExcelMigrationHelper {
                         }
 
                         if (!File::exists($saveDirectory)) {
-                            $result['error'] = "Directory could not be created. We suggest that you create the directory and try again. Here is the path: {$saveDirectory}";
+                            $result['error'] = "Product Variation: Directory could not be created. We suggest that you create the directory and try again. Here is the path: {$saveDirectory}";
 
                             return $result;
                         }
@@ -247,7 +252,7 @@ class ExcelMigrationHelper {
                         $image->save(($saveDirectory . '\\' . $image_name));
                         $thumb_image->save(($saveDirectory . '\\' . $thumb_image_name));
                     } catch (NotWritableException $e) {
-                        $result['error'] = 'Cannot write image to the storage path';
+                        $result['error'] = 'Product Variation: Cannot write image to the storage path';
 
                         return $result;
                     }
@@ -280,7 +285,7 @@ class ExcelMigrationHelper {
                         'reserved_qty' => 0
                     ]);
 
-                    if (trim($has_batch) === 'No') {
+                    if (strtolower(trim($has_batch)) === 'no') {
                         $values = [
                             'batch_code' => Uuid::uuid4(),
                             'variation_id' => $variation->id,
@@ -316,7 +321,7 @@ class ExcelMigrationHelper {
 
                     $variation = ProductVariation::all()->where('variation_name', $name)->first();
                     if (!$variation) {
-                        $result['error'] = "Could not fnd a variation with the name: {$name}";
+                        $result['error'] = "Batches: Could not fnd a variation with the name: {$name}";
 
                         return $result;
                     }

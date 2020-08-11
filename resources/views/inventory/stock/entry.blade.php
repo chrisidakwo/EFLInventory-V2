@@ -201,7 +201,7 @@ $page_title = "Stock Entry";
 
     <script type="text/javascript">
         function repopulateProducts() {
-            var barcode = $("#txtBarcode").val();
+          let barcode = $("#txtBarcode").val();
 
             $.ajax({
                 url: "/product/barcode/find",
@@ -209,10 +209,14 @@ $page_title = "Stock Entry";
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
-                    $("#barcode").modal("hide");
-                    $("#ddlProduct").val(data.product.id).trigger('change');
+                  $("#barcode").modal("hide");
+                  let product = data.variations[0];
+
+                  if (product) {
+                    $("#ddlProduct").val(product.id).trigger('change');
                     // the implementation above is faster and more concise
                     //$('select>option[value="' + data.product.id + '"]').prop('selected', true).trigger("change");
+                  }
                 }
             });
         }
@@ -245,7 +249,7 @@ $page_title = "Stock Entry";
             populateProductVariations($("#ddlProduct").val());
 
             $("#ddlProduct").change(function() {
-                var product_id = $(this).val();
+                let product_id = $(this).val();
                 populateProductVariations(product_id);
             });
 
