@@ -108,7 +108,7 @@ Route::get('/pos/cart', 'CartController@all')->name('cart.all');
 Route::get('/pos/cart/process', 'CartController@process')->name('cart.process');
 Route::post('/pos/cart/sell', 'CartController@sell')->name('cart.sell');
 Route::post('/pos/cart/store', 'CartController@add')->name('cart.add');
-Route::patch('/pos/cart/update', 'CartController@update')->name('cart.update');
+Route::post('/pos/cart/update', 'CartController@update')->name('cart.update');
 Route::get('/pos/sales/receipt', 'CartController@receipt')->name('cart.salesReceipt');
 
 

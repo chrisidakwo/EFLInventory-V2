@@ -16,10 +16,10 @@ class CreateProductsTable extends Migration {
             $table->string('image_path', 500);
             $table->string('thumb_image_path', 500);
             $table->string('slug', 60)->unique()->index();
-            $table->string('upc_code', 150)->unique()->index();
+            $table->string('upc_code', 150)->nullable();
             $table->integer('category_id')->unsigned();
             $table->integer('subcategory_id')->unsigned();
-            $table->integer('brand_id')->unsigned();
+            $table->integer('brand_id')->nullable()->unsigned();
             $table->string('variate_by', 20);
             $table->boolean('status')->default(true);
             $table->timestamps();

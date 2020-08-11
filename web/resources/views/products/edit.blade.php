@@ -78,7 +78,7 @@ $page_title = $title;
 
                         <div>
                             <h5 class="mb-0">Brand:</h5>
-                            <p class="mb-0">{{ $product->brand }}</p>
+                            <p class="mb-0">{{ $product->brand->name ?? '' }}</p>
                         </div>
                     </div>
 

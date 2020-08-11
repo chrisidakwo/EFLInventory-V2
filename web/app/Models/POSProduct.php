@@ -69,7 +69,7 @@ class POSProduct extends Collection implements JsonSerializable, Jsonable {
             $pos_product = new POSProduct();
 
             foreach ($batches as $batch) {
-                if ($batch->variation_id === $variation->id && $batch->on_sale === 1) {
+                if (((int) $batch->variation_id) === ((int) $variation->id) && ((int) $batch->on_sale) === 1) {
                     $pos_product->retail_price = $batch->retail_price;
                     $pos_product->wholesale_price = $batch->wholesale_price;
                     $pos_product->expiry_date = $batch->expiry_date;
@@ -85,7 +85,7 @@ class POSProduct extends Collection implements JsonSerializable, Jsonable {
                     $pos_product->category = $variation->product->subcategory->category->name;
                     $pos_product->sub_category = $variation->product->subcategory->name;
                     $pos_product->upc_code = $variation->product->upc_code;
-                    $pos_product->brand = $variation->product->brand->toArray();
+                    $pos_product->brand = $variation->product->brand ? $variation->product->brand->toArray() : [];
                     $pos_product->sku = $variation->sku;
                     $pos_product->variate_by = $variation->product->variate_by;
                     $pos_product->weight = $variation->weight . $variation->weight_unit ;

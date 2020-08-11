@@ -19,10 +19,11 @@ class CreateSalesHistoriesTable extends Migration {
             $table->float('unit_cost', 12, 2);
             $table->float('total_cost', 12, 2);
             $table->float('balance_due', 12, 2)->default(0.00);
-            $table->float('change', 12, 2)->default(0.00);
+            $table->float('change_amount', 12, 2)->default(0.00);
             $table->boolean('is_discounted')->default(false);
             $table->float('discount_amount', 12, 2)->default(0.00);
             $table->float('profit', 12, 2)->default(0.00);
+            $table->float('loss', 12, 2)->default(0.00);
             $table->boolean('is_wholesale')->default(false);
             $table->string('payment_method');
             $table->string('remarks')->nullable();

@@ -29,13 +29,13 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Ramsey\Uuid\Uuid;
 
 class ExcelMigrationHelper {
-	/**
-	 * @param $table
-	 * @param $filename
-	 * @return array
-	 * @throws Exception
-	 * @throws \Exception
-	 */
+    /**
+     * @param $table
+     * @param $filename
+     * @return array
+     * @throws Exception
+     * @throws \Exception
+     */
     public static function migrate($table, $filename): array {
         $result = [];
 
@@ -105,15 +105,15 @@ class ExcelMigrationHelper {
                     $category = Category::where('name', $category)->first();
 
                     if ($category->exists()) {
-	                    SubCategory::create([
-		                    'name' => $name,
-		                    'slug' => $slug,
-		                    'category_id' => $category->id
-	                    ]);
+                        SubCategory::create([
+                            'name' => $name,
+                            'slug' => $slug,
+                            'category_id' => $category->id
+                        ]);
 
-	                    // Record action history
-	                    $description = 'Added new sub-category from Excel document migration';
-	                    ActionHistory::AddNewActionHistory($description);
+                        // Record action history
+                        $description = 'Added new sub-category from Excel document migration';
+                        ActionHistory::AddNewActionHistory($description);
                     }
                     break;
 
