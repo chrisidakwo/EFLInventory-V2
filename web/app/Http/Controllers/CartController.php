@@ -106,12 +106,15 @@ class CartController extends Controller {
      * @return JsonResponse
      */
     public function update(Request $request): JsonResponse {
-        $batch_id = $request['id'];
+        $batch_id = $request['batch_id'];
         $price = $request['price'];
         $qty = $request['quantity'];
 
         Cart::update($batch_id, [
-            'quantity' => $qty,
+            'quantity' => [
+                'relative' => (int) $qty['relative'],
+                'value' => $qty['value']
+            ],
             'price' => $price
         ]);
 
@@ -185,11 +188,14 @@ class CartController extends Controller {
             $product_names .= "{$quantity} {$item->name}, ";
         }
 
-        $last_receipt_no = 10285142;
-        $_last_sale = SalesGroup::all()->sortByDesc('id');
-        if (count($_last_sale) > 0) {
-            $last_receipt_no = $_last_sale->first()->receipt_no;
+        $last_receipt_no = 100;
+        /** @var SalesGroup $_last_sale */
+        $_last_sale = SalesGroup::query()->orderByDesc('id')->first();
+        if ($_last_sale->exists()) {
+            $last_receipt_no = $_last_sale->receipt_no;
         }
+
+        $receiptNumber = str_pad($last_receipt_no + 1, 8, '0', STR_PAD_LEFT);
 
         // Create a new sales group
         $sales_group = SalesGroup::create([
@@ -202,7 +208,7 @@ class CartController extends Controller {
             'payment_method' => $payment_method,
             'remarks' => empty($remarks) ? Carbon::now()->toDateTimeString() : $remarks,
             'seller' => Auth::user()->name,
-            'receipt_no' => $last_receipt_no + 1
+            'receipt_no' => $receiptNumber
         ]);
 
         // Loop through each cart item

@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use PhpOffice\PhpSpreadsheet\Exception;
 use Session;
 
 class MigrationController extends Controller {
@@ -32,11 +33,11 @@ class MigrationController extends Controller {
         return redirect()->home();
     }
 
-	/**
-	 * @param Request $request
-	 * @return RedirectResponse
-	 * @throws \PhpOffice\PhpSpreadsheet\Exception
-	 */
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws Exception
+     */
     public function store(Request $request): RedirectResponse {
         $file = $request->file('file-record');
         $table = $request->get('record');

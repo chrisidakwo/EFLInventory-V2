@@ -130,7 +130,7 @@
 									</td>
 									<td>{{ $product->subcategory->category->name }}</td>
 									<td>{{ $product->subcategory->name }}</td>
-									<td>{{ $product->brand->name }}</td>
+									<td>{{ $product->brand->name ?? '' }}</td>
 									<td><a href="{{ route("editProduct", $product->slug) }}" class="btn btn-primary"><i class="mdi mdi-eye"></i> View</a></td>
 								</tr>
 							@endforeach

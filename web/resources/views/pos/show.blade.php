@@ -465,6 +465,10 @@
 
     // Begin processing customer payment
     $("#btnPay").click(function () {
+
+      $('#txtAmountTendered').val(0);
+      $('#txtChange').val(0);
+
       var jqxhr = $.ajax({
         url: "/pos/cart/process",
         type: "get"
@@ -765,6 +769,7 @@
 
         var id = $(".selected").parent().data("id");
         var name = $(".selected").parent().data("name");
+
         UpdateProduct([id, name, item_unit_price.innerText, item_qty.innerText]);
       }
     });
@@ -1104,10 +1109,9 @@
 
   // Update an existing cart item
   function UpdateProduct(values) {
-    var id = values[0];
-    var name = values[1];
-    var price = values[2];
-    var quantity = values[3];
+    let id = values[0], name = values[1], price = values[2], quantity = values[3];
+
+    console.log('Quantity:', quantity);
 
     $.ajaxSetup({
       headers: {
@@ -1115,10 +1119,10 @@
       }
     });
 
-    var jqxhr = $.ajax({
-      url: "/pos/cart/store",
+    let jqxhr = $.ajax({
+      url: "/pos/cart/update",
       type: "POST",
-      data: {"batch_id": id, "name": name, "price": price, "quantity": quantity}
+      data: {"batch_id": id, "price": price, "quantity": {relative: '0', value: quantity} }
     });
 
     // Callback handler that will be called on success

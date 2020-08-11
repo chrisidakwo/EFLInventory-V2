@@ -24,6 +24,7 @@ class CreateProductVariationsTable extends Migration {
             $table->string('size', 10)->nullable();
             $table->integer('stock')->default(0);
             $table->integer('stock_threshold')->default(0);
+            $table->integer('reserved_qty')->default(0);
             $table->timestamps();
 
             $table->index('sku', 'IX_ProductVariations_SKU');

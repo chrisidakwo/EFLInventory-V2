@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>07b26207-ec32-4c6f-ace7-b6fe0665c39b.TABLE:main.sales_groups</OriginalElement>
+  <nodes>
+    <node x="-150.0" y="-92.0">07b26207-ec32-4c6f-ace7-b6fe0665c39b.TABLE:main.sales_groups</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="-50.0" y="69.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

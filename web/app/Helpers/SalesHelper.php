@@ -154,8 +154,8 @@ class SalesHelper {
 
         sort($month_list);
         foreach ($month_list as $month) {
-            $total_sales += SalesGroup::query()->whereRaw("MONTH(created_at) = $month")
-                ->whereRaw("YEAR(created_at) = $this_year")->sum('total_amount');
+            $total_sales += SalesGroup::query()->whereMonth('created_at', $month)
+                ->whereYear('created_at', $this_year)->sum('total_amount');
 
             $sales_range[] = $total_sales;
             $total_sales = 0.00;
