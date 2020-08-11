@@ -1,0 +1,31 @@
+{
+  "name": "eflinventory",
+  "version": "1.0.0",
+  "description": "A small-store inventory management and point-of-sale system",
+  "keywords": [
+    "store",
+    "inventory",
+    "pos",
+    "sale",
+    "product",
+    "barcode",
+    "scanner",
+    "stock",
+    "batch",
+    "fifo"
+  ],
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build":"electron-packager . LaravelElectron --out=dist"
+  },
+  "author": "Ekojoka Christolight Idakwo",
+  "license": "MIT",
+  "dependencies": {
+    "node-php-server": "^0.1.2"
+  },
+  "devDependencies": {
+    "electron": "^9.2.0",
+    "electron-packager": "^15.0.0"
+  }
+}
