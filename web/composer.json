@@ -5,29 +5,24 @@
     "license": "MIT",
     "type": "product",
     "require": {
-        "php": ">=7.0.0",
+        "php": "^7.2",
         "ext-intl": "*",
         "ext-json": "*",
-        "arcanedev/log-viewer": "^5.0",
-        "darryldecode/cart": "^4.0",
-        "fideloper/proxy": "^4.0",
-        "intervention/image": "^2.5",
-        "laravel/framework": "^6.0",
+        "ext-openssl": "*",
+        "laravel/framework": "^7.0",
         "laravel/helpers": "^1.2",
-        "laravel/tinker": "^2.0",
         "mike42/escpos-php": "^1.6",
         "nao-pon/flysystem-google-drive": "~1.1",
         "phpoffice/phpspreadsheet": "^1.0",
         "rah/danpu": "^2.7"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.7",
-        "doctrine/dbal": "^2.10",
-        "filp/whoops": "~2.0",
+        "barryvdh/laravel-ide-helper": "^2.8",
+        "filp/whoops": "^2.7",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~6.0"
+        "fzaninotto/faker": "^1.9",
+        "mockery/mockery": "^1.4",
+        "phpunit/phpunit": "^9.3"
     },
     "autoload": {
         "classmap": [

@@ -2,8 +2,6 @@
 /**
  * Class InventoryHelper.
  *
- * Description Here
- *
  * @author: Ekojoka Christolight Idakwo <chris.idakwo@gmail.com>
  * @date: 26/12/2017
  * @time: 08:39

@@ -167,8 +167,6 @@ return [
         /*
          * Package Service Providers...
          */
-
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
         App\Providers\GoogleDriveServiceProvider::class,

@@ -17,7 +17,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build":"electron-packager . EFLInventory --out=dist"
+    "build": "electron-packager . EFLInventory --out=dist"
   },
   "author": "Ekojoka Christolight Idakwo",
   "license": "MIT",

@@ -90,49 +90,51 @@
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">PERSONAL</li>
                         <li><a class="has-arrow" href="/pos" ><i class="mdi mdi-counter"></i>POS</a></li>
-                        @if(Auth::User()->authorizeRoles(["Manager"]))
-                            <li>
-                                <a class="has-arrow" href="/products" ><i class="mdi mdi-shopping"></i>PRODUCTS</a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="/brands">Brands</a></li>
-                                    <li><a href="/dealers">Dealers</a></li>
-                                    <li><a href="/product/create">Add New Product</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-receipt"></i>REPORT</a>
-                                <ul aria-expanded="false" class="collapse">
-                                    {{--<li><a href="/report/inventory-valuation">Inventory Valuation</a></li>--}}
-                                    <li><a href="/report/purchase-transactions">Purchase Transactions</a></li>
-                                    <li><a href="/report/sales-transactions">Sales Transactions</a></li>
-                                    {{--<li><a href="/report/profit-loss-statement">Profit & Loss Statement</a></li>--}}
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-store-24-hour"></i>INVENTORY</a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="/inventory/categories">Category</a></li>
-                                    <li><a href="/inventory/subcategories">SubCategory</a></li>
-                                    <li>
-                                        <a class="has-arrow" href="#" aria-expanded="false">Inventory Control</a>
-                                        <ul>
-                                            {{--<li><a href="/inventory/rules">Rules</a></li>--}}
-                                            <li><a href="/inventory/stock-entry">Stock Entry</a></li>
-                                        </ul>
-                                    </li>
-                                    {{--<li><a href="/inventory/backup">Backup Inventory</a></li>--}}
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-settings"></i>CONFIGURATIONS</a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="/configuration/users">Users</a></li>
-                                    <li><a href="/configuration/units">Measurement Units</a></li>
-                                    <li><a href="/configuration/migrate">Migrate Records/Inventory</a></li>
-                                    {{--<li><a href="/configuration/backup-settings">Backup Settings</a></li>--}}
-                                </ul>
-                            </li>
-                        @endif
+                        @auth()
+                            @if(Auth::user()->authorizeRoles(["Manager"]))
+                                <li>
+                                    <a class="has-arrow" href="/products" ><i class="mdi mdi-shopping"></i>PRODUCTS</a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="/brands">Brands</a></li>
+                                        <li><a href="/dealers">Dealers</a></li>
+                                        <li><a href="/product/create">Add New Product</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-receipt"></i>REPORT</a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        {{--<li><a href="/report/inventory-valuation">Inventory Valuation</a></li>--}}
+                                        <li><a href="/report/purchase-transactions">Purchase Transactions</a></li>
+                                        <li><a href="/report/sales-transactions">Sales Transactions</a></li>
+                                        {{--<li><a href="/report/profit-loss-statement">Profit & Loss Statement</a></li>--}}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-store-24-hour"></i>INVENTORY</a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="/inventory/categories">Category</a></li>
+                                        <li><a href="/inventory/subcategories">SubCategory</a></li>
+                                        <li>
+                                            <a class="has-arrow" href="#" aria-expanded="false">Inventory Control</a>
+                                            <ul>
+                                                {{--<li><a href="/inventory/rules">Rules</a></li>--}}
+                                                <li><a href="/inventory/stock-entry">Stock Entry</a></li>
+                                            </ul>
+                                        </li>
+                                        {{--<li><a href="/inventory/backup">Backup Inventory</a></li>--}}
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-settings"></i>CONFIGURATIONS</a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="/configuration/users">Users</a></li>
+                                        <li><a href="/configuration/units">Measurement Units</a></li>
+                                        <li><a href="/configuration/migrate">Migrate Records/Inventory</a></li>
+                                        {{--<li><a href="/configuration/backup-settings">Backup Settings</a></li>--}}
+                                    </ul>
+                                </li>
+                            @endif
+                        @endauth()
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

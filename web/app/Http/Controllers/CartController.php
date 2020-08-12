@@ -8,7 +8,6 @@ use App\Models\ProductVariation;
 use App\Models\SalesGroup;
 use App\Models\SalesHistory;
 use Auth;
-use Carbon\Carbon;
 use Cart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -153,11 +152,13 @@ class CartController extends Controller {
     /**
      ** clear all items in cart.
      */
-    public function clearCart() {
+    public function clearCart(): void {
         $items = Cart::getContent();
+        
         foreach ($items as $item) {
             Cart::remove($item->id);
         }
+
         Cart::clear();
     }
 
@@ -206,7 +207,7 @@ class CartController extends Controller {
             'change_amount' => $change,
             'balance_due' => $remaining_balance,
             'payment_method' => $payment_method,
-            'remarks' => empty($remarks) ? Carbon::now()->toDateTimeString() : $remarks,
+            'remarks' => empty($remarks) ? now(config('app.timezone'))->toDateTimeString() : $remarks,
             'seller' => Auth::user()->name,
             'receipt_no' => $receiptNumber
         ]);
@@ -225,16 +226,16 @@ class CartController extends Controller {
             $product_variation = ProductVariation::find($active_batch->variation_id);
 
             // Initialize helper variables
-            $itemUnitCost = $item->price;
+            //$itemUnitCost = $item->price;
             $itemGrossCost = $item->price * $item->quantity;
             $loss = 0.00;
             $profit = 0.00;
 
             // Calculate profit & loss
-            if (($itemUnitCost - $active_batch->unit_cost) > 0) {
-                $profit = $itemUnitCost - $active_batch->unit_cost;
-            } elseif (($itemUnitCost - $active_batch->unit_cost) < 0) {
-                $loss = -1 * ($itemUnitCost - $active_batch->unit_cost);
+            if (($item->price - $active_batch->unit_cost) > 0) {
+                $profit = ($item->price - $active_batch->unit_cost) * $item->quantity;
+            } elseif (($item->price - $active_batch->unit_cost) < 0) {
+                $loss = -1 * ($item->price - $active_batch->unit_cost) * $item->quantity;
             }
 
             // Create new selling history
@@ -244,7 +245,7 @@ class CartController extends Controller {
                 'batch_id' => $active_batch->id,
                 'quantity' => $item->quantity,
                 'total_cost' => $itemGrossCost,
-                'unit_cost' => $itemUnitCost,
+                'unit_cost' => $item->price,
                 'profit' => $profit,
                 'loss' => $loss,
                 'payment_method' => $sales_group->payment_method

@@ -20,11 +20,11 @@ function createWindow() {
   phpServer.createServer({
     port: port,
     hostname: host,
-    base: `${__dirname}/www/public`,
+    base: `${__dirname}\\web\\public`,
     keepalive: false,
     open: false,
-    bin: `${__dirname}/php/php.exe`,
-    router: __dirname + '/www/server.php'
+    bin: `${__dirname}\\php\\php.exe`,
+    router: __dirname + '\\web\\server.php'
   });
 
   // Create the browser window.
@@ -37,7 +37,7 @@ function createWindow() {
     height: height,
     show: false,
     autoHideMenuBar: true,
-    title: 'EFLInventory',
+    title: 'EFL Inventory System',
     center: true
   });
 
@@ -46,7 +46,7 @@ function createWindow() {
   mainWindow.webContents.once('dom-ready', function () {
     mainWindow.show()
     mainWindow.maximize();
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools();
   });
 
   

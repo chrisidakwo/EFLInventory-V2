@@ -63,16 +63,17 @@ class SalesHelper {
         return (($today - $yesterday) / $yesterday) * 100;
     }
 
-    /**
-     ** get total sales profit for today.
-     *
-     * @return float
-     */
-    public static function getProfitForToday(): float {
-        $today = Carbon::today()->toDateString();
+    // /**
+    //  ** get total sales profit for today.
+    //  *
+    //  * @return float
+    //  */
+    // public static function getProfitForToday(): float {
+    //     $today = today(config('app.timezone'));
 
-        return self::_getProfit($today);
-    }
+    //     dd(self::_getProfit($today));
+    //     // return self::_getProfit($today);
+    // }
 
     /**
      ** get total sales profit for yesterday.
@@ -169,14 +170,17 @@ class SalesHelper {
      * @return float
      */
     private static function _getSales($date): float {
-        return (float) SalesGroup::query()->when(is_array($date), static function (Builder $builder) use ($date) {
-            $startDate = !($date[0] instanceof Carbon) ? Carbon::parse($date[0])->toDateString(): $date[0]->toDateTimeString();
-            $endDate = !($date[1] instanceof Carbon) ? Carbon::parse($date[1])->toDateString(): $date[1]->toDateTimeString();
+        $salesQuery = SalesGroup::query();
 
-            return $builder->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
-        }, static function (Builder $builder) use ($date) {
-            return $builder->whereDate('created_at', $date);
-        })->sum('total_amount');
+        if (is_array($date)) {
+            [$startDate, $endDate] = $date;
+
+            return $salesQuery->whereDate('created_at', '>=', Carbon::parse($startDate))
+                    ->whereDate('created_at', '<=', Carbon::parse($endDate))
+                    ->sum('total_amount');
+        }
+
+        return $salesQuery->whereDate('created_at', $date)->sum('total_amount');
     }
 
     /**
@@ -186,18 +190,26 @@ class SalesHelper {
     private static function _getProfit($date): float {
         $salesQuery = SalesHistory::query();
 
-        return (float) $salesQuery->when(is_array($date), static function (Builder $query) use ($date) {
-            $start_date = is_string($date[0]) ? Carbon::parse($date[0]): $date[0];
-            $end_date = is_string($date[1]) ? Carbon::parse($date[1]): $date[1];
+        if (is_array($date)) {
+            [$start_date, $end_date] = $date;
 
-            return $query->where(static function (Builder $query) use ($start_date, $end_date) {
-                $query->whereDate('created_at', '>=', $start_date)
-                    ->whereDate('created_at', '<=', $end_date);
-            }, static function (Builder $query) use ($date) {
-                $date = is_string($date) ? Carbon::parse($date) : $date;
+            return $salesQuery->where(static function (Builder $query) use ($start_date, $end_date) {
+                $query->whereDate('created_at', '>=', Carbon::parse($start_date)->format('Y-m-d'))
+                    ->whereDate('created_at', '<=', Carbon::parse($end_date)->format('Y-m-d'));
+            })->sum('profit');
+        }
 
-                return $query->whereDate('created_at', $date);
-            });
-        })->sum('profit');
+        return $salesQuery->whereDate('created_at', $date)->sum('profit');
+    }
+
+    /**
+     ** get total sales profit for today.
+     *
+     * @return float
+     */
+    public static function getProfitForToday(): float {
+        $today = today(config('app.timezone'));
+
+        return self::_getProfit($today);
     }
 }
