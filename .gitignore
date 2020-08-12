@@ -31,3 +31,4 @@
 /web/.phpstorm.meta.php
 /web/.php_cs.cache
 .gitmsg
+/dist

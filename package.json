@@ -16,8 +16,44 @@
   ],
   "main": "main.js",
   "scripts": {
+    "postinstall": "install-app-deps",
     "start": "electron .",
-    "build": "electron-packager . EFLInventory --out=dist"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "org.eflinventory",
+    "mac": {
+      "category": "public.app-category.shopping"
+    },
+    "nsis": {
+      "createDesktopShortcut": "always"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "category": "Shopping",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    }
   },
   "author": "Ekojoka Christolight Idakwo",
   "license": "MIT",
@@ -26,6 +62,7 @@
   },
   "devDependencies": {
     "electron": "^9.2.0",
+    "electron-builder": "^22.8.0",
     "electron-packager": "^15.0.0"
   }
 }
