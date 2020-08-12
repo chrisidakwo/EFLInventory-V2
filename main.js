@@ -46,7 +46,7 @@ function createWindow() {
   mainWindow.webContents.once('dom-ready', function () {
     mainWindow.show()
     mainWindow.maximize();
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   });
 
   
