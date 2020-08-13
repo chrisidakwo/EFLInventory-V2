@@ -17,8 +17,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class SalesHelper {
-    // TODO: Refactor methods. Reduce code reuse.
-
     /**
      ** get total sales for today.
      *
@@ -63,17 +61,16 @@ class SalesHelper {
         return (($today - $yesterday) / $yesterday) * 100;
     }
 
-    // /**
-    //  ** get total sales profit for today.
-    //  *
-    //  * @return float
-    //  */
-    // public static function getProfitForToday(): float {
-    //     $today = today(config('app.timezone'));
+	/**
+	 ** get total sales profit for today.
+	 *
+	 * @return float
+	 */
+	public static function getProfitForToday(): float {
+		$today = today(config('app.timezone'));
 
-    //     dd(self::_getProfit($today));
-    //     // return self::_getProfit($today);
-    // }
+		return self::_getProfit($today);
+	}
 
     /**
      ** get total sales profit for yesterday.
@@ -200,16 +197,5 @@ class SalesHelper {
         }
 
         return $salesQuery->whereDate('created_at', $date)->sum('profit');
-    }
-
-    /**
-     ** get total sales profit for today.
-     *
-     * @return float
-     */
-    public static function getProfitForToday(): float {
-        $today = today(config('app.timezone'));
-
-        return self::_getProfit($today);
     }
 }
