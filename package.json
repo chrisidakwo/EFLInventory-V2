@@ -61,7 +61,7 @@
     "node-php-server": "^0.1.2"
   },
   "devDependencies": {
-    "electron": "^9.2.0",
+    "electron": "^15.5.5",
     "electron-builder": "^22.8.0",
     "electron-packager": "^15.0.0"
   }
